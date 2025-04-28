@@ -1,0 +1,124 @@
+@charset "UTF-8";
+
+body {
+	font-family: 'Roboto', sans-serif;
+	background-image: linear-gradient(to right, purple, #8F87F1);
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.container {
+	background-color: white;
+	border-radius: 8px;
+	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	font-size: 15px;
+	text-align: center;
+	padding: 30px;
+	overflow-y:auto;
+}
+
+h1 {
+	text-align: left;
+	margin-bottom: 30px;
+	background-image: linear-gradient(to right, blue, purple 60%);
+	background-repeat: no-repeat;
+	background-size: 40% 7px; /* width 100%, height 2px */
+	background-position: 0 110%; /* align to bottom of text */
+	padding-bottom: 2px;
+}
+
+.row {
+	display: flex;
+	flex-wrap: wrap; /* Allows columns to wrap on smaller screens */
+	margin-bottom: 10px;
+}
+
+.col {
+	flex: 1;
+	margin-right: 20px;
+	text-align: left; /* Aligns text in columns to the left */
+}
+
+.col:last-child {
+	margin-right: 0;
+}
+
+label {
+	display: block;
+	margin-bottom: 5px;
+	text-align: left; /* Aligns label text to the left */
+	font-size: 130%;
+}
+
+input, select {
+	font-size:100%;
+	width: 100%;
+	padding: 10px;
+	border: 0.5px solid #c0c0c0;
+	border-radius: 10px;
+	box-sizing: border-box;
+	margin-bottom: 5px;
+	background-color: rgba(0, 0, 0, 0);
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+input:focus, select {
+	outline: none;
+}
+
+button {
+	color:white;
+	font-size: 20px;
+	background-image: linear-gradient(to right, blue, purple);
+	padding: 10px 20px;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	text-align: center;
+	margin-top: 10px;
+}
+
+.login-link {
+	font-size: 20px;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 30px;
+	cursor: pointer;
+	display: inline-block;
+	text-align: center;
+	margin-top: 10px;
+}
+
+p {
+	padding: 10px;
+	margin-left: 10px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.error-message {
+	border: 1px solid red;
+	background-color: rgba(255, 0, 0, 0.3);
+}
+
+.success-message {
+	border: 1px solid green;
+	background-color: rgba(0, 255, 0, 0.3);
+}
+
+
+@media ( max-width : 798px) {
+	body{
+	align-items: top;
+	}
+	
+	.container {
+	width:100%;
+	height:100%;
+	}
+}

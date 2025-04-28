@@ -1,0 +1,161 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+}
+
+body {
+	background-color: #f0f2f5;
+}
+
+.container {
+	display: flex;
+	min-height: 100vh;
+}
+
+/* Main Content */
+.main {
+	flex: 1;
+
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	padding: 20px;
+	margin-bottom: 20px;	
+	background-color: white;
+}
+
+.title {
+	font-size: 24px;
+	color: #333;
+}
+
+.dashboard {
+	display: grid;
+	gap: 30px;
+	padding:20px;
+}
+
+/*card display*/
+.card-row {
+	display: grid;
+	grid-template-columns: auto auto auto;
+	gap: 20px;
+}
+
+.card-col {
+	border-radius: 30px;
+	padding: 20px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#total-children-card {
+	background-image: linear-gradient(to top, #6a4cdb, #B5A8D5 90%);
+}
+
+#upcoming-birthday-card {
+	background-image: linear-gradient(to top, #9B7EBD, #F0C1E1 90%);
+}
+
+#content {
+	background-image: linear-gradient(to top, #FFB200, #FFD2A0 90%);
+}
+
+.col-title {
+	margin: 30px; color : white;
+	font-weight: bold;
+	font-size: 24px;
+	color: white;
+}
+
+.col-content {
+	color: white;
+	margin-left: 35px;
+	font-size: 50px;
+}
+
+.col-content li {
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+.search-bar {
+
+	display: flex;
+	justify-content: center;
+}
+
+.search-bar form {
+	display: flex;
+	gap: 10px; /* Add spacing between input, button, and validation */
+	align-items: center;
+}
+
+.search-bar input {
+	border: 1px solid #ddd;
+	padding: 15px;
+	border-radius: 30px;
+	background-color:#f0f2f5;
+}
+
+.search-bar button {
+	background-image: linear-gradient(to top, #6a4cdb, #B5A8D5 90%);
+	border: 0px solid;
+	border-radius: 20px;
+	color: white;
+	cursor: pointer;
+	font-size: 30px;
+	vertical-align: middle;
+	width: 50px;
+}
+
+.search-bar p {
+	padding: 10px;
+	color: white;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+
+table {
+	width: 100%;
+	border-collapse: collapse; /* Ensures no space between borders */
+	background-color: white;
+}
+
+th, td {
+	padding: 10px;
+	text-align: center;
+}
+
+tr {
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+}
+
+th {
+	background-color: #6a4cdb;
+	color: white;
+}
+
+.orphan-table {
+	max-height:50vh;
+	overflow-y: auto; /* Enables vertical scrolling */
+}
+
+tr:nth-child(odd) {
+	background-color: #e6f2ff;
+}
+
+@media ( max-width : 798px) {
+	.card-row {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+}

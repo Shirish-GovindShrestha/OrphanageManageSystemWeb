@@ -1,0 +1,168 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+}
+
+body {
+	background-color: #f0f2f5;
+}
+
+.container {
+	display: flex;
+	min-height: 100vh;
+}
+
+/* Main Content */
+.main {
+	flex: 1;
+	
+}
+
+.account-dashboard {
+	padding: 20px;
+	border-radius: 10px;
+	width: 100%;
+}
+
+.profile-row {
+	display: flex;
+	align-items:center;
+	margin-bottom: 60px;
+	background-image:linear-gradient(to right, #8F87F1, purple 50%, pink);
+	padding:10px;
+	border-radius:5px;
+	flex-direction:column;
+	
+}
+
+.profile-photo {
+	width: 150px;
+	height: 150px;
+	border-radius: 5px;
+	overflow: hidden;
+	display:flex;
+	justify-content:center;
+	font-size:60px;
+	object-fit: contain;
+
+}
+
+.profile-box{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	position:relative;
+	top:60px;
+	text-align:center;
+	font-size:30px;	
+}
+
+.change-pic{
+	display:flex;
+	justify-content: center;
+	gap:30px;
+}
+
+.row {
+	display: flex;
+	flex-wrap: wrap; /* Allows columns to wrap on smaller screens */
+	margin-bottom: 10px;
+}
+
+.col {
+	flex: 1;
+	margin-right: 30px;
+	text-align: left; /* Aligns text in columns to the left */
+}
+
+.content-area form{
+	padding:30px;
+	background-color:white;
+	border-radius:15px;
+	}
+
+.account-dashboard label {
+	display: block;
+	margin-bottom: 5px;
+	text-align: left; /* Aligns label text to the left */
+}
+
+.account-dashboard input, .account-dashboard select {
+	width: 100%;
+	padding: 15px;
+	border: 0.5px solid grey;
+	margin-bottom: 5px;
+	border-radius: 5px;
+    font-size:100%;
+}
+	
+
+
+.account-dashboard  input:focus, .account-dashboard select {
+	outline: none;
+}
+
+.account-dashboard  option {
+	color: #a55cc4;
+}
+
+.account-dashboard  button {
+	font-size: 20px;
+	background-color: #fff;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 30px;
+	cursor: pointer;
+	display: inline-block;
+	text-align: center;
+	margin-top: 10px;
+	background-color: #8887F1;
+}
+
+.account-dashboard button:hover {
+	background-image: linear-gradient(to right, purple, #8F87F1);
+	color: white;
+}
+
+.button-row {
+	display: flex;
+	justify-content: center;
+}
+
+input[type="file"] {
+    display: none; /* Hide default file input */
+}
+
+.custom-file-input {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+p{	
+	  
+	padding :10px; 
+	color: black;
+	margin-left:10px;
+	font-size:15px;
+	font-weight:bold;
+}
+.error-message {
+	border: 1px solid red;
+	background-color: rgba(255,0,0,0.3);
+}
+
+.success-message{
+	border: 1px solid green;
+	background-color: rgba(0,255,0,0.3);
+}
