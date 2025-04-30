@@ -11,9 +11,10 @@ import java.util.List;
 
 import com.heretohelp.config.DbConfig;
 import com.heretohelp.model.OrphanModel;
+import com.heretohelp.model.UserModel;
 
 /**
- * LoginService handles the login of old users
+ * DashboardService handles the retrieving insights about the data
  * 
  */
 public class DashboardService {
@@ -32,9 +33,9 @@ public class DashboardService {
 	}
 
 	/**
-	 * Retrieves orphan data from database
+	 * Retrieves the latest 4 orphan added to the system
 	 *
-	 * @return list of orphanModel
+	 * @return list of orphanModel order by admission date in descending order
 	 * @throws SQLException
 	 */
 	public List<OrphanModel> getOrphanModels() throws SQLException {
@@ -44,12 +45,13 @@ public class DashboardService {
 			return null;
 		}
 
-		String selectQuery = "SELECT * from orphan";
+		String selectQuery = "SELECT * from orphan order by admission_date desc limit 4";
 		try {
 			PreparedStatement ps = dbConn.prepareStatement(selectQuery);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				OrphanModel orphanModel = new OrphanModel();
+				orphanModel.setOrphanId(rs.getInt("orphan_id"));
 				orphanModel.setFirstName(rs.getString("first_name"));
 				orphanModel.setLastName(rs.getString("last_name"));
 				orphanModel.setDob(LocalDate.parse(rs.getString("dob")));
@@ -65,6 +67,35 @@ public class DashboardService {
 			System.err.println("Error while loggin " + e.getMessage());
 			e.printStackTrace();
 			return null;
+		}
+	}
+
+	/**
+	 * Retrieves orphan data from database
+	 *
+	 * @return int Total Number of orphan in the database
+	 * @throws SQLException
+	 */
+	public int getTotalOrphan() throws SQLException {
+		if (dbConn == null) {
+			System.err.println("Database connection is not available.");
+			return 0;
+		}
+
+		String selectQuery = "SELECT Count(*) from orphan";
+		try {
+			PreparedStatement ps = dbConn.prepareStatement(selectQuery);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}else {
+				
+				return 0;
+			}
+		} catch (SQLException e) {
+			System.err.println("Error while loggin " + e.getMessage());
+			e.printStackTrace();
+			return 0;
 		}
 	}
 
@@ -103,7 +134,7 @@ public class DashboardService {
 	}
 
 	/**
-	 * Retrieves orphan data from database with
+	 * Retrieves orphan data from database with input firstname or last name
 	 *
 	 * @return list of orphanModel
 	 * @throws SQLException
@@ -125,6 +156,7 @@ public class DashboardService {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				OrphanModel orphanModel = new OrphanModel();
+				orphanModel.setOrphanId(rs.getInt("orphan_id"));
 				orphanModel.setFirstName(rs.getString("first_name"));
 				orphanModel.setLastName(rs.getString("last_name"));
 				orphanModel.setDob(LocalDate.parse(rs.getString("dob")));
@@ -135,6 +167,39 @@ public class DashboardService {
 			}
 
 			return orphanList;
+		} catch (SQLException e) {
+			System.err.println("Error while loggin " + e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
+	
+	/**
+	 * Retrieves the most recent users who have signed up, ordered by user ID in descending order
+	 *
+	 * @return list of userModel containing username of the latest user
+	 * @throws SQLException
+	 */
+	public List<UserModel> getLatestUserData() throws SQLException {
+		List<UserModel> userList = new ArrayList<UserModel>();
+		if (dbConn == null) {
+			System.err.println("Database connection is not available.");
+			return null;
+		}
+
+		String selectQuery = "SELECT username FROM USER WHERE username != 'admin' ORDER BY user_id DESC LIMIT 3";
+
+		try {
+			PreparedStatement ps = dbConn.prepareStatement(selectQuery);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				UserModel userModel = new UserModel();
+				userModel.setUsername(rs.getString("username"));
+				userList.add(userModel);
+			}
+			return userList;
 		} catch (SQLException e) {
 			System.err.println("Error while loggin " + e.getMessage());
 			e.printStackTrace();

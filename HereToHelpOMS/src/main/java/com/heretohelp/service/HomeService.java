@@ -32,9 +32,9 @@ public class HomeService {
 	}
 
 	/**
-	 * Retrieves orphan data from database
+	 * Fetches a list of active orphans from the database.
 	 *
-	 * @return list of orphanModel
+	 * @return list of orphanModel having status active, or null if database connection is unavailable
 	 * @throws SQLException
 	 */
 	public List<OrphanModel> getOrphanModels() throws SQLException{

@@ -29,9 +29,9 @@ public class LoginService {
 	}
 
 	/**
-	 * Checks database for existing user
+	 * Verifies if the given user credentials exist and matches in the database.
 	 *
-	 * @param userModel the user credentials
+	 * @param userModel the user credentials to be verified
 	 * @return Boolean indicating the success of the operation
 	 */
 	public Boolean checkUserCredentials(UserModel userModel) {
@@ -68,10 +68,18 @@ public class LoginService {
 	private boolean validatePassword(ResultSet result, UserModel userModel) throws SQLException {
 		String dbUsername = result.getString("username");
 		String dbPassword = result.getString("password");
-		 return dbUsername.equals(userModel.getUsername()) && PasswordUtil.decrypt(dbPassword, dbUsername).equals(userModel.getPassword());
+		return dbUsername.equals(userModel.getUsername())
+				&& PasswordUtil.decrypt(dbPassword, dbUsername).equals(userModel.getPassword());
 
 	}
 
+	/**
+	 * Retrieves the role of the specified user 
+	 *
+	 * @param userModel the user whose role is to be retrieved
+	 * @return true if the user is an admin; false otherwise; null if a database
+	 *         error occurs or the user is not found
+	 */
 	public Boolean retrieveUserRole(UserModel userModel) {
 		if (dbConn == null) {
 			System.err.println("Database connection is not available.");

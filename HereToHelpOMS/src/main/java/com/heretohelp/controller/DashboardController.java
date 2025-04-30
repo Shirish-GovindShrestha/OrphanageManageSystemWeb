@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.heretohelp.model.OrphanModel;
+import com.heretohelp.model.UserModel;
 import com.heretohelp.service.DashboardService;
 
 
@@ -40,8 +41,11 @@ public class DashboardController extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
+			List<UserModel> userList = dashboardService.getLatestUserData();
+			request.setAttribute("userList", userList);
 			List<OrphanModel> orphanList = dashboardService.getOrphanModels();
-			  request.setAttribute("totalOrphanCount", orphanList.size());
+			int totalOrphan = dashboardService.getTotalOrphan();
+			  request.setAttribute("totalOrphanCount", totalOrphan);
 			String searchItem = request.getParameter("search-item");
 			if (searchItem != null) {
 				orphanList = dashboardService.getOrphanData(searchItem);

@@ -12,11 +12,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Orphanage Management System</title>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/dashboard.css?v=1" />
+	href="${pageContext.request.contextPath}/css/dashboard.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/sidebar.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/footer.css" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+	rel="stylesheet">
 </head>
 <style>
 </style>
@@ -53,44 +56,62 @@
 							</ul>
 						</div>
 					</div>
-					<div class="card-col" id="content">
-						<div class="col-title">Total Children</div>
+					<div class="card-col" id="latest-user">
+						<div class="col-title">Latest User</div>
+						<div class="col-content">
+							<ul>
+								<c:forEach var="user" items="${userList}">
+									<li><h3>${user.username}</h3></li>
+								</c:forEach>
+							</ul>
+						</div>
 					</div>
 				</div>
-
-				<div class="orphan-table">
-					<table>
-						<tr>
-							<th>First Name</th>
-							<th>Last Name</th>
-							<th>DOB</th>
-							<th>Gender</th>
-							<th>Status</th>
-							<th>Admission Date</th>
-						</tr>
-						<c:choose>
-							<c:when test="${not empty orphanList}">
-								<c:forEach var="orphan" items="${orphanList}">
+				<div class="card-col" id="orphan-table">
+					<div class="orphan-table">
+						<div class="table-title">Recently added Orphan</div>
+						<table>
+							<tr>
+								<th>Id</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>DOB</th>
+								<th>Gender</th>
+								<th>Status</th>
+								<th>Admission Date</th>
+								<th>Edit & Delete</th>
+							</tr>
+							<c:choose>
+								<c:when test="${not empty orphanList}">
+									<c:forEach var="orphan" items="${orphanList}">
+										<tr>
+											<td>${orphan.orphanId}</td>
+											<td>${orphan.firstName}</td>
+											<td>${orphan.lastName}</td>
+											<td>${orphan.dob}</td>
+											<td>${orphan.gender}</td>
+											<td>${orphan.status}</td>
+											<td>${orphan.admissionDate}</td>
+											<td><a href="editOrphan?id=${orphan.orphanId}"
+												class="edit-button">✏️</a><a
+												href="deleteOrphan?id=${orphan.orphanId}"
+												class="delete-button"
+												onclick="return confirm('Are you sure you want to delete this orphan?');">
+													🗑</a></td>
+										</tr>
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
 									<tr>
-										<td>${orphan.firstName}</td>
-										<td>${orphan.lastName}</td>
-										<td>${orphan.dob}</td>
-										<td>${orphan.gender}</td>
-										<td>${orphan.status}</td>
-										<td>${orphan.admissionDate}</td>
+										<td colspan="6" style="text-align: center; color: #888;">No
+											data found</td>
 									</tr>
-								</c:forEach>
-							</c:when>
-							<c:otherwise>
-								<tr>
-									<td colspan="6" style="text-align: center; color: #888;">No
-										data found</td>
-								</tr>
-							</c:otherwise>
-						</c:choose>
+								</c:otherwise>
+							</c:choose>
 
 
-					</table>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>

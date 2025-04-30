@@ -19,16 +19,14 @@ import com.heretohelp.util.RedirectionUtil;
 import com.heretohelp.util.SessionUtil;
 import com.heretohelp.util.UserUtil;
 import com.heretohelp.util.ValidationUtil;
-
+/**
+ * @author Shirish Govind Shrestha
+ */
 @WebServlet(asyncSupported = true, urlPatterns = { "/account" })
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-		maxFileSize = 1024 * 1024 * 10, // 10MB
-		maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class AccountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private RedirectionUtil redirectionUtil;
 	private ManageAccountService manageAccountService;
-	private ImageUtil imageUtil;
 	private UserUtil userUtil;
 
 	/**
@@ -38,7 +36,6 @@ public class AccountController extends HttpServlet {
 		super();
 		redirectionUtil = new RedirectionUtil();
 		manageAccountService = new ManageAccountService();
-		imageUtil = new ImageUtil();
 		userUtil = new UserUtil();
 
 		// TODO Auto-generated constructor stub
@@ -70,12 +67,6 @@ public class AccountController extends HttpServlet {
 			UserModel userModel = extractUserModel(req, resp);
 			String result = manageAccountService.updateUser(userModel, req);
 			userUtil.setUserData(req);
-			if (uploadImage(req) && result.equals("User updated successfully.")) {	
-				redirectionUtil.setMsgAndRedirect(req, resp, "success", "Your account is successfully updated!",
-						RedirectionUtil.accountUrl);
-			} else {
-				handleError(req, resp, "Could not upload the image. Please try again later!");
-			}
 			switch (result) {
 			case "User updated successfully.":
 				redirectionUtil.setMsgAndRedirect(req, resp, "success", "Your account is successfully updated!",
@@ -118,22 +109,14 @@ public class AccountController extends HttpServlet {
 					RedirectionUtil.accountUrl);
 		}
 		password = PasswordUtil.encrypt(username, password);
-		Part image = req.getPart("image");
-		String imageUrl = imageUtil.getImageNameFromPart(image);
 
-		return new UserModel(firstName, lastName, username, dob, gender, number, email, password, imageUrl);
+		return new UserModel(firstName, lastName, username, dob, gender, number, email, password);
 	}
 
 	private void handleError(HttpServletRequest req, HttpServletResponse resp, String message)
 			throws ServletException, IOException {
 		req.setAttribute("error", message);
-		userUtil.setUserData(req);
 		req.getRequestDispatcher("/WEB-INF/pages/account.jsp").forward(req, resp);
-	}
-
-	private boolean uploadImage(HttpServletRequest req) throws IOException, ServletException {
-		Part image = req.getPart("image");
-		return imageUtil.uploadImage(image, req.getServletContext().getRealPath("/"), "user");
 	}
 
 }

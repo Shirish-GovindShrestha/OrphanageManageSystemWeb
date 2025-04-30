@@ -7,7 +7,11 @@
 <title>Login to your account</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/login.css" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+	rel="stylesheet">
 </head>
+
 <body>
 	<div class="login-box">
 		<h1>Login</h1>

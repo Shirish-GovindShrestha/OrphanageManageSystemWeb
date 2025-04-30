@@ -5,57 +5,66 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Poppins', sans-serif;
 }
 
 body {
-	background-color: #f0f2f5;
+	background-color: #f4f7fa;
+	color: #333;
 }
 
 .container {
 	display: flex;
 	min-height: 100vh;
-	align-items:center;
 }
 
 /* Main Content */
 .main {
 	flex: 1;
-	padding: 10px;
+	padding: 40px;
+	max-width: 1400px;
+	margin: 0 auto;
 }
 
-.contact-card{
-	display:flex;
-	flex-direction:column;
-	gap:30px;
-}
 .contact-content {
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	gap: 20px;
+	grid-template-columns: 1fr 1.5fr;
+	gap: 30px;
+	align-items: start;
+}
+
+.contact-card {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
 }
 
 .card {
-	background-color: white;
-	border-radius: 5px;
-	padding: 20px;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	background-color: #fff;
+	border-radius: 12px;
+	padding: 30px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
 
 .card-header {
-	display: flex;
-	justify-content: space-between;
-}
-
-.card-title {
-	font-weight: bold;
-	font-size: 32px;
 	margin-bottom: 20px;
 }
 
+.card-title {
+	font-size: 28px;
+	font-weight: 600;
+	color: #1a3c34;
+}
+
 .contact-methods {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	display: flex;
+	flex-direction: column;
 	gap: 20px;
 }
 
@@ -63,100 +72,122 @@ body {
 	display: flex;
 	gap: 15px;
 	align-items: flex-start;
-	margin-bottom: 10px;
 }
 
 .contact-icon {
-	width: 40px;
-	height: 40px;
-	border-radius: 5px;
+	width: 50px;
+	height: 50px;
+	border-radius: 10px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	font-size: 24px;
 	flex-shrink: 0;
 }
 
 .bg-green {
-	background-color: #ebf9f1;
-	color: #4CAF50;
+	background-color: #e6f4ea;
+	color: #2e7d32;
 }
 
-
 .bg-orange {
-	background-color: #fff0e6;
-	color: #FF9800;
+	background-color: #fff3e0;
+	color: #f57c00;
 }
 
 .bg-purple {
-	background-color: #f3e6ff;
-	color: #9C27B0;
+	background-color: #f3e8ff;
+	color: #7b1fa2;
 }
 
-.phone-number-details p{
-	font-size:30px;
+.phone-number-details p {
+	font-size: 28px;
+	font-weight: 500;
+	color: #1a3c34;
 }
 
 .contact-details h3 {
-	margin-bottom: 5px;
-	color: #333;
-	font-size: 16px;
-	font-weight: bold;
+	font-size: 18px;
+	font-weight: 600;
+	margin-bottom: 8px;
+	color: #1a3c34;
 }
 
 .contact-details p {
+	font-size: 16px;
 	color: #555;
-	font-size: 14px;
-	line-height: 1.5;
+	line-height: 1.6;
 }
 
 /* Form Styles */
+.contact-form-card {
+	position: relative;
+	overflow: hidden;
+}
+
+
+
+.form-image img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 10px;
+	max-height: 200px;
+	object-fit: cover;
+}
 
 .contact-form {
 	width: 100%;
 }
 
 .form-group {
-	margin-bottom: 15px;
+	margin-bottom: 20px;
 }
 
 label {
 	display: block;
-	margin-bottom: 5px;
+	font-size: 16px;
 	font-weight: 500;
+	margin-bottom: 8px;
+	color: #1a3c34;
 }
 
 input, select, textarea {
 	width: 100%;
-	padding: 10px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	font-size: 14px;
+	padding: 12px;
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	font-size: 16px;
+	background-color: #fafafa;
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 input:focus, select:focus, textarea:focus {
 	outline: none;
-	border-color: #4CAF50;
+	border-color: #2e7d32;
+	box-shadow: 0 0 8px rgba(46, 125, 50, 0.2);
+}
+
+textarea {
+	resize: vertical;
 }
 
 .button {
-	padding: 10px 20px;
+	padding: 12px 24px;
 	border: none;
-	border-radius: 4px;
+	border-radius: 8px;
 	cursor: pointer;
-	font-weight: bold;
+	font-size: 16px;
+	font-weight: 600;
+	transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .button-primary {
-	background-color: #4CAF50;
-	color: white;
+	background-color: #2e7d32;
+	color: #fff;
 }
 
-/* Responsive */
-@media screen and (max-width: 768px) {
-	.contact-content {
-		grid-template-columns: 1fr;
-	}
-	.contact-methods {
-		grid-template-columns: 1fr;
-	}
+.button-primary:hover {
+	background-color: #1b5e20;
+	transform: translateY(-2px);
 }
+

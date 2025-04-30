@@ -7,7 +7,11 @@
 <title>Register Page</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/register.css?v=2" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+	rel="stylesheet">
 </head>
+
 <body>
 	<div class="container">
 		<h1>Registration Form</h1>

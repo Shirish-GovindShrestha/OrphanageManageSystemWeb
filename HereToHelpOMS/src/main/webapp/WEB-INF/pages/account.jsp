@@ -1,4 +1,5 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -10,6 +11,9 @@
 	href="${pageContext.request.contextPath}/css/account.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/sidebar.css" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+	rel="stylesheet">
 </head>
 <body>
 	<div class="container">
@@ -22,17 +26,18 @@
 						<div class="profile-row">
 							<div class="profile-box">
 								<div class="profile-photo">
-									<img id= "image-preview" src="${pageContext.request.contextPath}${imageUrl}" />
+									<img id="image-preview"
+										src="${pageContext.request.contextPath}${imageUrl}" />
 								</div>${username}</div>
 						</div>
 						<div class="change-pic">
 							<input type="file" id="image" name="image"> <label
 								for="image" class="custom-file-input">Update your</label>
-								<button type="submit">Update Picture</button>
+							<button type="submit">Update Picture</button>
 						</div>
 					</form>
 					<form action="${pageContext.request.contextPath}/account"
-						method="post" >
+						method="post">
 
 						<div class="row">
 							<div class="col">
@@ -106,20 +111,20 @@
 	</div>
 </body>
 <script>
-    // Get the file input and the image preview elements
-    var fileInput = document.getElementById('image');
-    var imagePreview = document.getElementById('image-preview');
-    
-    // Add an event listener that runs when a file is selected
-    fileInput.onchange = function() {
-        // Check if a file was selected
-        if (fileInput.files && fileInput.files[0]) {
-            // Create a temporary URL for the selected image
-            var imageURL = URL.createObjectURL(fileInput.files[0]);
-            
-            // Update the image preview with the selected image
-            imagePreview.src = imageURL;
-        }
-    };
+	// Get the file input and the image preview elements
+	var fileInput = document.getElementById('image');
+	var imagePreview = document.getElementById('image-preview');
+
+	// Add an event listener that runs when a file is selected
+	fileInput.onchange = function() {
+		// Check if a file was selected
+		if (fileInput.files && fileInput.files[0]) {
+			// Create a temporary URL for the selected image
+			var imageURL = URL.createObjectURL(fileInput.files[0]);
+
+			// Update the image preview with the selected image
+			imagePreview.src = imageURL;
+		}
+	};
 </script>
 </html>

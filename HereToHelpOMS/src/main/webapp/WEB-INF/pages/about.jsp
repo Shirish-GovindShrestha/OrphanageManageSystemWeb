@@ -13,6 +13,9 @@
 	href="${pageContext.request.contextPath}/css/sidebar.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/footer.css" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+	rel="stylesheet">
 </head>
 <body>
 	<div class="container">
@@ -30,8 +33,9 @@
 						<div class="card-title">Our Institution</div>
 					</div>
 					<div class="card-body">
-						<img src="orphanage-image.jpg" alt="Orphanage Building"
-							class="about-image">
+						<img
+							src="${pageContext.request.contextPath}/resources/images/system/orphanage-image.jpg"
+							alt="Orphanage Building" class="about-image">
 						<h2>HereToHelp Orphanage</h2>
 						<p>Founded in 2000, Hope Children's Home has been dedicated to
 							providing shelter, education, and care for orphaned and abandoned
@@ -78,38 +82,15 @@
 							</div>
 
 							<div class="feature">
-								<div class="feature-icon bg-blue">👥</div>
+								<div class="feature-icon bg-blue">📚</div>
 								<div class="feature-text">
-									<h4>Staff Management</h4>
-									<p>Track staff information, roles, schedules, and
-										performance to ensure quality care.</p>
-								</div>
-							</div>
-
-							<div class="feature">
-								<div class="feature-icon bg-orange">💰</div>
-								<div class="feature-text">
-									<h4>Donation Management</h4>
-									<p>Record and manage donations, generate reports, and
-										ensure transparent fund utilization.</p>
-								</div>
-							</div>
-
-							<div class="feature">
-								<div class="feature-icon bg-purple">📊</div>
-								<div class="feature-text">
-									<h4>Reporting and Analytics</h4>
-									<p>Generate insightful reports to track progress and make
-										informed decisions.</p>
+									<h4>Education Monitoring</h4>
+									<p>Keep detailed reports on each child’s academic progress,
+										attendance, and extracurricular activities to support their
+										growth and learning journey.</p>
 								</div>
 							</div>
 						</div>
-
-						<h3>Our Impact</h3>
-						<p>Since implementing this system in 2022, we have improved
-							our operational efficiency by 40%, reduced administrative costs,
-							and enhanced our ability to provide personalized care to each
-							child.</p>
 					</div>
 				</div>
 			</div>

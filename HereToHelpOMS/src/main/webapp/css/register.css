@@ -1,14 +1,15 @@
 @charset "UTF-8";
 
 body {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Poppins', sans-serif;
 	background-image: linear-gradient(to right, purple, #8F87F1);
 	background-size: cover;
 	background-repeat: no-repeat;
-	height: 100vh;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	padding:30px;
+	overflow-y:auto;
 }
 
 .container {
@@ -50,9 +51,9 @@ h1 {
 
 label {
 	display: block;
-	margin-bottom: 5px;
+	margin-bottom: 2px;
 	text-align: left; /* Aligns label text to the left */
-	font-size: 130%;
+	font-size: 110%;
 }
 
 input, select {

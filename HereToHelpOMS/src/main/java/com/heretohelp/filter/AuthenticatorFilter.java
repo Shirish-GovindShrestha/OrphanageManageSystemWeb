@@ -25,8 +25,6 @@ public class AuthenticatorFilter implements Filter {
 	private static final String CONTACT = "/contact";
 	private static final String DASHBOARD = "/dashboard";
 	private static final String ROOT = "/";
-	private static final String ADMIN = "admin";
-	private static final String USER = "adopter";
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -44,7 +42,7 @@ public class AuthenticatorFilter implements Filter {
 		String role = roleCookie != null ? roleCookie.getValue() : null;
 		String currentUrl = httpReq.getRequestURI();
 
-		if (currentUrl.endsWith(".css") || currentUrl.endsWith(HOME) || currentUrl.endsWith(ROOT) ||currentUrl.endsWith(ABOUT)||  currentUrl.endsWith(CONTACT) ||  currentUrl.endsWith(".jpg")||currentUrl.endsWith(".png")){
+		if (currentUrl.endsWith(".css") || currentUrl.endsWith(".svg") ||currentUrl.endsWith(HOME) || currentUrl.endsWith(ROOT) ||currentUrl.endsWith(ABOUT)||  currentUrl.endsWith(CONTACT) ||  currentUrl.endsWith(".jpg")||currentUrl.endsWith(".png")){
 			chain.doFilter(req, resp);
 			return;
 		}
@@ -54,7 +52,7 @@ public class AuthenticatorFilter implements Filter {
 	        return;
 	    }
 
-		if (session == null) {
+		if (session == null || role == null) {
 			if (currentUrl.endsWith(LOGIN) || currentUrl.endsWith(REGISTER)) {
 				chain.doFilter(req, resp);
 			} else {

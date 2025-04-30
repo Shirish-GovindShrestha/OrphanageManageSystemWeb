@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Servlet implementation class ContactController
+ * @author Shirish Govind Shrestha
  */
 @WebServlet(asyncSupported = true, urlPatterns = { "/contact" })
 public class ContactController extends HttpServlet {

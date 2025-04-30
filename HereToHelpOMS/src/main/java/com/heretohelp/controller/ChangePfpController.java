@@ -16,7 +16,9 @@ import com.heretohelp.util.ImageUtil;
 import com.heretohelp.util.RedirectionUtil;
 import com.heretohelp.util.UserUtil;
 
-
+/**
+ * @author Shirish Govind Shrestha
+ */
 @WebServlet(asyncSupported = true, urlPatterns = { "/changePfp" })
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 maxFileSize = 1024 * 1024 * 10, // 10MB
@@ -46,7 +48,7 @@ public class ChangePfpController extends HttpServlet {
 
             if (uploadImage(req) && result) {
             	  userUtil.setUserData(req);  // This will populate the user data
-                redirectionUtil.setMsgAndRedirect(req, resp, "success", "Your account is successfully updated!", RedirectionUtil.accountUrl);
+                redirectionUtil.setMsgAndRedirect(req, resp, "success", "Your account profile is successfully updated!", RedirectionUtil.accountUrl);
             } else {
             	 userUtil.setUserData(req);  // Make sure to call this even if the image upload fails
                 redirectionUtil.setMsgAndRedirect(req, resp, "error", "There was an error updating your profile.", RedirectionUtil.accountUrl);

@@ -49,7 +49,7 @@ public class ImageUtil {
 		// Check if the filename was not found or is empty
 		if (imageName == null || imageName.isEmpty()) {
 			// Assign a default file name if none was provided
-			imageName = "download.png";
+			imageName = "default.png";
 		}
 
 		// Return the extracted or default file name

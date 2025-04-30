@@ -4,7 +4,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -62,8 +62,12 @@ body {
 	background-image: linear-gradient(to top, #9B7EBD, #F0C1E1 90%);
 }
 
-#content {
+#latest-user{
 	background-image: linear-gradient(to top, #FFB200, #FFD2A0 90%);
+}
+
+#orphan-table{
+	background-color:white;
 }
 
 .col-title {
@@ -128,10 +132,23 @@ table {
 	background-color: white;
 }
 
+.table-title{
+	font-size:36px;
+	margin-bottom:15px;
+	color: #8F87F1;
+	font-weight:bold;
+	
+}
 th, td {
 	padding: 10px;
 	text-align: center;
 }
+
+td a{
+	margin-right:10px;
+	text-decoration:none;
+}
+
 
 tr {
 	border-top: 1px solid #ddd;

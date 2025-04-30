@@ -1,6 +1,6 @@
 package com.heretohelp.service;
 
-import jakarta.servlet.annotation.WebServlet;
+
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -19,7 +19,6 @@ import com.heretohelp.util.SessionUtil;
 /**
  * Servlet implementation class ManageAccountService1
  */
-@WebServlet("/ManageAccountService1")
 public class ManageAccountService extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection dbConn;
@@ -85,7 +84,7 @@ public class ManageAccountService extends HttpServlet {
 		}
 		
 		String currentUser = (String) SessionUtil.getAttribute(req, "username");
-		String updateQuery = "UPDATE user SET first_name = ?, last_name = ?, username = ?, dob = ?, gender = ?, number = ?, email = ?, password = ?, image_url=? WHERE username = ?";
+		String updateQuery = "UPDATE user SET first_name = ?, last_name = ?, username = ?, dob = ?, gender = ?, number = ?, email = ?, password = ? WHERE username = ?";
 
 		try {
 			PreparedStatement updateStmt = dbConn.prepareStatement(updateQuery);
@@ -98,8 +97,7 @@ public class ManageAccountService extends HttpServlet {
 			updateStmt.setString(6, userModel.getNumber());
 			updateStmt.setString(7, userModel.getEmail());
 			updateStmt.setString(8, userModel.getPassword());
-			updateStmt.setString(9, userModel.getImageUrl());
-			updateStmt.setString(10, currentUser);
+			updateStmt.setString(9, currentUser);
 
 			return updateStmt.executeUpdate() > 0 ? "User updated successfully." : "Failed to update user.";
 		} catch (SQLException e) {

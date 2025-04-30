@@ -35,7 +35,7 @@ public class RegisterService {
 	 * Registers a new user in the database.
 	 *
 	 * @param userModel the user details to be registered
-	 * @return String "User added successfully." indicating the success of the operation else "Failed to add user."
+	 * @return String "User added successfully." indicating the su	ccess of the operation else "Failed to add user."
 	 */
 	public Boolean addUser(UserModel userModel) {
 		if (dbConn == null) {
@@ -43,8 +43,8 @@ public class RegisterService {
 			return null;
 		}
 
-		String insertQuery = "INSERT INTO user (first_name, last_name, username, dob, gender, number, email, password, role_id, image_url=?) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+		String insertQuery = "INSERT INTO user (first_name, last_name, username, dob, gender, number, email, password, role_id, image_url) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			PreparedStatement insertStmt = dbConn.prepareStatement(insertQuery);

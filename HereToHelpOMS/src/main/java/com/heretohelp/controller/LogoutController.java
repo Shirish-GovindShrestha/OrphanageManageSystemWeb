@@ -9,9 +9,8 @@ import java.io.IOException;
 
 import com.heretohelp.util.CookieUtil;
 import com.heretohelp.util.SessionUtil;
-
 /**
- * Servlet implementation class LogoutController
+ * @author Shirish Govind Shrestha
  */
 @WebServlet(asyncSupported = true, urlPatterns = { "/logout" })
 public class LogoutController extends HttpServlet {

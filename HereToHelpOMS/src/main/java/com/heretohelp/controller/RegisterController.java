@@ -127,6 +127,7 @@ public class RegisterController extends HttpServlet {
 		req.setAttribute("gender", req.getParameter("gender"));
 		req.setAttribute("email", req.getParameter("email"));
 		req.setAttribute("phoneNumber", req.getParameter("phoneNumber"));
+		req.setAttribute("image", req.getParameter("image"));
 		req.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(req, resp);
 	}
 

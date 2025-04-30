@@ -43,7 +43,7 @@ public class PasswordUtil {
 	public static SecretKey getAESKeyFromPassword(char[] password, byte[] salt) {
 		try {
 			SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-			// iterationCount = 65536
+			// iterationCount = 65536S
 			// keyLength = 256
 			KeySpec spec = new PBEKeySpec(password, salt, 65536, 256);
 			SecretKey secret = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
