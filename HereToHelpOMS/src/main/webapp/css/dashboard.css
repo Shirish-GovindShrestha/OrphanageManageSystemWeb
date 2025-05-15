@@ -1,0 +1,281 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+}
+
+body {
+	background-color: #f0f2f5;
+}
+
+.container {
+	display: flex;
+	min-height: 100vh;
+}
+
+/* Main Content */
+.main {
+	flex: 1;
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	padding: 20px;
+	margin-bottom: 20px;
+	background-color: white;
+	justify-content: space-between;
+}
+
+.title {
+	font-size: 24px;
+	color: #333;
+}
+
+.dashboard {
+	display: grid;
+	gap: 30px;
+	padding: 20px;
+}
+
+/*card display*/
+.card-row {
+	display: grid;
+	grid-template-columns: auto auto auto;
+	gap: 20px;
+}
+
+.card-col {
+	border-radius: 30px;
+	padding: 20px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#total-children-card {
+	background-image: linear-gradient(to top, #6a4cdb, #B5A8D5 90%);
+}
+
+#upcoming-birthday-card {
+	background-image: linear-gradient(to top, #9B7EBD, #F0C1E1 90%);
+}
+
+#latest-user {
+	background-image: linear-gradient(to top, #FFB200, #FFD2A0 90%);
+}
+
+#orphan-table {
+	background-color: white;
+}
+
+.col-title {
+	margin: 30px;
+	color: white;
+	font-weight: bold;
+	font-size: 24px;
+	color: white;
+}
+
+.col-content {
+	color: white;
+	margin-left: 35px;
+	font-size: 50px;
+}
+
+.col-content li {
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+.search-bar {
+	display: flex;
+	justify-content: center;
+}
+
+.search-bar form {
+	display: flex;
+	gap: 10px;
+	/* Add spacing between input, button, and validation */
+	align-items: center;
+}
+
+.search-bar input {
+	border: 1px solid #ddd;
+	padding: 15px;
+	border-radius: 30px;
+	background-color: #f0f2f5;
+}
+
+.search-bar button {
+	background-image: linear-gradient(to top, #6a4cdb, #B5A8D5 90%);
+	border: 0px solid;
+	border-radius: 20px;
+	color: white;
+	cursor: pointer;
+	font-size: 30px;
+	vertical-align: middle;
+	width: 50px;
+}
+
+.search-bar p {
+	padding: 10px;
+	color: white;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	/* Ensures no space between borders */
+	background-color: white;
+}
+
+.table-title {
+	font-size: 36px;
+	margin-bottom: 15px;
+	color: #8F87F1;
+	font-weight: bold;
+}
+
+th,
+td {
+	padding: 10px;
+	text-align: center;
+}
+
+td a {
+	margin-right: 10px;
+	text-decoration: none;
+}
+
+tr {
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+}
+
+th {
+	background-color: #6a4cdb;
+	color: white;
+}
+
+.orphan-table {
+	max-height: 50vh;
+	overflow-y: auto;
+	/* Enables vertical scrolling */
+}
+
+tr:nth-child(odd) {
+	background-color: #e6f2ff;
+}
+
+/* adding orphan */
+a.button {
+	display: inline-block;
+	padding: 10px 20px;
+	background: #007bff;
+	color: white;
+	text-decoration: none;
+	border-radius: 4px;
+}
+
+/* Modal container */
+.modal {
+	display: none;
+	/* Initially hidden */
+	position: fixed;
+	/* Fixes modal to the viewport */
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.6);
+	/* Dark background with transparency */
+	justify-content: center;
+	/* Horizontally center */
+	align-items: center;
+	/* Vertically center */
+	z-index: 1000;
+	/* Ensure modal is above other content */
+}
+
+/* When the modal is targeted, show it */
+#popup:target {
+	display: flex;
+}
+
+/* Modal content box */
+.modal-content {
+	background-color: #fff;
+	padding: 30px;
+	border-radius: 10px;
+	width: 100%;
+	max-width: 500px;
+	margin: 0 15px;
+	/* Prevent content touching edges */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	/* Soft shadow */
+	position: relative;
+	/* For close button positioning */
+	max-height: 80vh;
+	/* Maximum height to avoid exceeding screen height */
+	overflow-y: auto;
+	/* Allow vertical scrolling if content exceeds height */
+}
+
+.modal-content input,
+.modal-content select {
+	width: 100%;
+	padding: 12px;
+	margin: 10px 0;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.modal-content button {
+	width: 100%;
+	padding: 10px;
+	background: #28a745;
+	border: none;
+	color: white;
+	border-radius: 4px;
+}
+
+.close {
+	position: absolute;
+	top: 10px;
+	right: 15px;
+	text-decoration: none;
+	font-size: 24px;
+	color: #aaa;
+}
+
+.close:hover {
+	color: #000;
+}
+
+p {
+	padding: 10px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.error-message {
+	border: 1px solid red;
+	background-color: rgba(255, 0, 0, 0.3);
+}
+
+.success-message {
+	border: 1px solid green;
+	background-color: rgba(0, 255, 0, 0.3);
+}
+
+@media (max-width : 798px) {
+	.card-row {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+}
