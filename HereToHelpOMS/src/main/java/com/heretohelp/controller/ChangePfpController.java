@@ -1,4 +1,4 @@
-package com.heretohelp.controller;
+	package com.heretohelp.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -28,7 +28,7 @@ public class ChangePfpController extends HttpServlet {
 	private RedirectionUtil redirectionUtil;
 	private ManageAccountService manageAccountService;
 	private ImageUtil imageUtil;
-	private UserService userUtil;
+	private UserService userService;
 
 	
 	public ChangePfpController() {
@@ -36,21 +36,21 @@ public class ChangePfpController extends HttpServlet {
 		redirectionUtil = new RedirectionUtil();
 		manageAccountService = new ManageAccountService();
 		imageUtil = new ImageUtil();
-		userUtil = new UserService();
+		userService = new UserService();
 		// TODO Auto-generated constructor stub
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-            UserModel userModel = extractProfile(req);
+            UserModel userModel = extractImage(req);
             boolean result = manageAccountService.updateProfileImage(userModel, req);
 
             if (uploadImage(req) && result) {
-            	  userUtil.setUserData(req);  // This will populate the user data
+            	userService.setUserData(req);  // This will populate the user data
                 redirectionUtil.setMsgAndRedirect(req, resp, "success", "Your account profile is successfully updated!", RedirectionUtil.accountUrl);
             } else {
-            	 userUtil.setUserData(req);  // Make sure to call this even if the image upload fails
+            	userService.setUserData(req);  // Make sure to call this even if the image upload fails
                 redirectionUtil.setMsgAndRedirect(req, resp, "error", "There was an error updating your profile.", RedirectionUtil.accountUrl);
                
             }
@@ -62,7 +62,7 @@ public class ChangePfpController extends HttpServlet {
 	}
 	
 	
-	private UserModel extractProfile(HttpServletRequest req) throws IOException, ServletException {
+	private UserModel extractImage(HttpServletRequest req) throws IOException, ServletException {
 		
 		Part image = req.getPart("image");
 		String imageUrl = imageUtil.getImageNameFromPart(image);

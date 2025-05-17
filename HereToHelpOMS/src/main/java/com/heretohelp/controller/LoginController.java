@@ -12,6 +12,7 @@ import com.heretohelp.service.LoginService;
 import com.heretohelp.util.CookieUtil;
 import com.heretohelp.util.RedirectionUtil;
 import com.heretohelp.util.SessionUtil;
+import com.heretohelp.util.ValidationUtil;
 
 /**
  * @author Shirish Govind Shrestha
@@ -20,14 +21,13 @@ import com.heretohelp.util.SessionUtil;
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private LoginService loginService;
-
+	
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public LoginController() {
 		super();
-		new RedirectionUtil();
 		this.loginService = new LoginService();
 		;
 		// TODO Auto-generated constructor stub
@@ -51,6 +51,9 @@ public class LoginController extends HttpServlet {
 		// TODO Auto-generated method stub
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
+		if (ValidationUtil.isNullOrEmpty(password) ||ValidationUtil.isNullOrEmpty(username)  ) {
+			handleLoginFailure(req,resp,false);
+		}
 		UserModel loginCredential = new UserModel(username, password);
 		Boolean loginStatus = loginService.checkUserCredentials(loginCredential);
 

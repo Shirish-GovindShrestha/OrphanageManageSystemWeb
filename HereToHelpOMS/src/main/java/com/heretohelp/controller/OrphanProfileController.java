@@ -39,21 +39,14 @@ public class OrphanProfileController extends HttpServlet {
                 request.setAttribute("orphan", orphan);
                 request.getRequestDispatcher("/WEB-INF/pages/orphan-profile.jsp").forward(request, response);
             } else {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Orphan not found");
+                request.setAttribute("error", "Orphan Not Found");
+                request.getRequestDispatcher("/WEB-INF/pages/orphans.jsp").forward(request, response);
             }
+			
 		} catch (NumberFormatException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// TODO Auto-generated method stub
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

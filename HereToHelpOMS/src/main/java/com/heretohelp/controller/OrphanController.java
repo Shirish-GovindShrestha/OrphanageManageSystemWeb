@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.heretohelp.model.OrphanModel;
-import com.heretohelp.service.DashboardService;
 import com.heretohelp.service.HomeService;
 import com.heretohelp.service.OrphanService;
 
@@ -63,18 +62,7 @@ public class OrphanController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

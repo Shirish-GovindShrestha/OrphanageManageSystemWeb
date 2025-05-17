@@ -21,7 +21,6 @@ public class LogoutController extends HttpServlet {
 		CookieUtil.deleteCookie(response, "username");
 		SessionUtil.invalidateSession(request);
 		response.sendRedirect(request.getContextPath() + "/home");
-		System.out.print("Logout");
 	}
 
 }

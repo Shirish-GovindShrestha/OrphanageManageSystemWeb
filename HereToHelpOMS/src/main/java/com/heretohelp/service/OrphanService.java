@@ -128,6 +128,8 @@ public class OrphanService {
 				orphan.setStatus(rs.getString("status"));
 				orphan.setAdmissionDate(LocalDate.parse(rs.getString("admission_date")));
 				orphan.setImageUrl(rs.getString("image_url"));
+			}else {
+				return null;
 			}
 
 			// Fetch education and school info

@@ -19,10 +19,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(asyncSupported = true, urlPatterns ={"/editOrphan"})
+@WebServlet(asyncSupported = true, urlPatterns = { "/editOrphan" })
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-maxFileSize = 1024 * 1024 * 10, // 10MB
-maxRequestSize = 1024 * 1024 * 50) // 50MB
+		maxFileSize = 1024 * 1024 * 10, // 10MB
+		maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class EditOrphanController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private OrphanService orphanProfileService;
@@ -45,11 +45,13 @@ public class EditOrphanController extends HttpServlet {
 				request.setAttribute("educationList", orphanProfileService.getAllEducationLevels());
 				request.getRequestDispatcher("/WEB-INF/pages/edit-orphan.jsp").forward(request, response);
 			} else {
-				response.sendError(HttpServletResponse.SC_NOT_FOUND, "Orphan not found");
+				request.setAttribute("error", "Orphan Not Found");
+				request.getRequestDispatcher("/WEB-INF/pages/dashboard.jsp").forward(request, response);
 			}
 		} catch (NumberFormatException | SQLException e) {
+			request.setAttribute("error", "Error fetching orphan data");
+			request.getRequestDispatcher("/WEB-INF/pages/dashboard.jsp").forward(request, response);
 			e.printStackTrace();
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error fetching orphan data");
 		}
 	}
 
@@ -121,7 +123,8 @@ public class EditOrphanController extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/pages/edit-orphan.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error updating orphan");
+			request.setAttribute("error", "Error updating orphan ");
+			request.getRequestDispatcher("/WEB-INF/pages/dashboard.jsp").forward(request, response);
 		}
 	}
 

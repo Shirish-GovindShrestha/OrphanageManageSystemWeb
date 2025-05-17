@@ -41,6 +41,7 @@
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
+                			<jsp:include page="validation.jsp"/>
             </div>
 
             <!-- Children Grid -->

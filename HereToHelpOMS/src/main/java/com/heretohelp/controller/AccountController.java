@@ -24,7 +24,7 @@ public class AccountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private RedirectionUtil redirectionUtil;
 	private ManageAccountService manageAccountService;
-	private UserService userUtil;
+	private UserService userService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -33,7 +33,7 @@ public class AccountController extends HttpServlet {
 		super();
 		redirectionUtil = new RedirectionUtil();
 		manageAccountService = new ManageAccountService();
-		userUtil = new UserService();
+		userService = new UserService();
 
 		// TODO Auto-generated constructor stub
 	}
@@ -45,7 +45,7 @@ public class AccountController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			userUtil.setUserData(req);
+			userService.setUserData(req);
 			req.getRequestDispatcher("/WEB-INF/pages/account.jsp").forward(req, resp);
 		} catch (Exception e) {
 			redirectionUtil.setMsgAndRedirect(req, resp, "error", "Error retrieving User Data",
@@ -63,7 +63,7 @@ public class AccountController extends HttpServlet {
 		try {
 			UserModel userModel = extractUserModel(req, resp);
 			String result = manageAccountService.updateUser(userModel, req);
-			userUtil.setUserData(req);
+			userService.setUserData(req);
 			switch (result) {
 			case "User updated successfully.":
 				redirectionUtil.setMsgAndRedirect(req, resp, "success", "Your account is successfully updated!",
@@ -111,7 +111,7 @@ public class AccountController extends HttpServlet {
 			System.out.print(storedPassword);
 			System.out.print(oldPassword);
 			if (!oldPassword.equals(storedPassword)) {
-				userUtil.setUserData(req);
+				userService.setUserData(req);
 				redirectionUtil.setMsgAndRedirect(req, resp, "error", "Old password is incorrect!",
 						RedirectionUtil.accountUrl);
 				return null;
@@ -119,7 +119,7 @@ public class AccountController extends HttpServlet {
 
 			// Check new and retype password match
 			if (!ValidationUtil.doPasswordsMatch(newPassword, retypePassword)) {
-				userUtil.setUserData(req);
+				userService.setUserData(req);
 				redirectionUtil.setMsgAndRedirect(req, resp, "error", "Passwords do not match!",
 						RedirectionUtil.accountUrl);
 				return null;

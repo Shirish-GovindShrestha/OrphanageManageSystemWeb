@@ -44,7 +44,6 @@ public class DeleteOrphanController extends HttpServlet {
 			request.setAttribute("error", "Orphan ID not provided.");
 		}
 
-		// Redirect back to the dashboard or orphan list page
 		response.sendRedirect(request.getContextPath() + "/dashboard");
 	}
 }
