@@ -1,4 +1,4 @@
-	package com.heretohelp.filter;
+package com.heretohelp.filter;
 
 import java.io.IOException;
 
@@ -28,7 +28,6 @@ public class AuthenticatorFilter implements Filter {
 	private static final String PROFILE = "/orphan-profile";
 	private static final String ORPHAN = "/orphans";
 	private static final String ACCOUNT = "/account";
-	
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -41,27 +40,30 @@ public class AuthenticatorFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest httpReq = (HttpServletRequest) req;
 		HttpServletResponse httpResp = (HttpServletResponse) resp;
-		
+
 		Cookie Cookie = CookieUtil.getCookie(httpReq, "username");
 		String session = Cookie != null ? Cookie.getValue() : null;
-		
-		String role = (String)SessionUtil.getAttribute(httpReq, "role");
-	
+
+		String role = (String) SessionUtil.getAttribute(httpReq, "role");
+
 		String currentUrl = httpReq.getRequestURI();
 		// Only set if not already available
-        if (session != null && role != null) {
-                req.setAttribute("currentUserRole", role);
-        }
+		if (session != null && role != null) {
+			req.setAttribute("currentUserRole", role);
+		}
 
-		if (currentUrl.endsWith(".css") ||currentUrl.endsWith(ORPHAN) || currentUrl.endsWith(".svg") ||currentUrl.endsWith(HOME)||currentUrl.endsWith(PROFILE) || currentUrl.endsWith(ROOT) ||currentUrl.endsWith(ABOUT)||  currentUrl.endsWith(CONTACT) ||  currentUrl.endsWith(".jpg")||currentUrl.endsWith(".png")){
+		if (currentUrl.endsWith(".css") || currentUrl.endsWith(ORPHAN) || currentUrl.endsWith(".svg")
+				|| currentUrl.endsWith(HOME) || currentUrl.endsWith(PROFILE) || currentUrl.endsWith(ROOT)
+				|| currentUrl.endsWith(ABOUT) || currentUrl.endsWith(CONTACT) || currentUrl.endsWith(".jpg")
+				|| currentUrl.endsWith(".png")) {
 			chain.doFilter(req, resp);
 			return;
 		}
-		
-	    if (currentUrl.endsWith(DASHBOARD) && !"admin".equals(role)) {
-	        httpResp.sendRedirect(httpReq.getContextPath() + ROOT);
-	        return;
-	    }
+
+		if (currentUrl.endsWith(DASHBOARD) && !"admin".equals(role)) {
+			httpResp.sendRedirect(httpReq.getContextPath() + ROOT);
+			return;
+		}
 
 		if (session == null || role == null) {
 			if (currentUrl.endsWith(LOGIN) || currentUrl.endsWith(REGISTER) || currentUrl.endsWith(ACCOUNT)) {
@@ -70,7 +72,7 @@ public class AuthenticatorFilter implements Filter {
 				httpResp.sendRedirect(httpReq.getContextPath() + LOGIN);
 			}
 		} else {
-			if (currentUrl.endsWith(LOGIN) || currentUrl.endsWith(REGISTER) ) {
+			if (currentUrl.endsWith(LOGIN) || currentUrl.endsWith(REGISTER)) {
 				httpResp.sendRedirect(httpReq.getContextPath() + HOME);
 			} else {
 				chain.doFilter(req, resp);

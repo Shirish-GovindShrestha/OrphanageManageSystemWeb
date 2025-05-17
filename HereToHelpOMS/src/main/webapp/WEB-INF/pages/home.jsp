@@ -114,6 +114,9 @@
 			<section class="featured-section">
 				<h2 class="section-title">Meet Our Stars</h2>
 				<div class="children-grid">
+					<c:if test="${empty orphanList}">
+						<div class="no-orphans-message">Please try again later.</div>
+					</c:if>
 					<c:forEach var="orphan" items="${orphanList}" end="3">
 						<article class="child-card">
 							<div class="child-photo">
@@ -138,6 +141,7 @@
 							</div>
 						</article>
 					</c:forEach>
+
 				</div>
 			</section>
 		</div>

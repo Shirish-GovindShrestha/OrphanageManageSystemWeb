@@ -32,12 +32,6 @@ public class PasswordUtil {
 		return nonce;
 	}
 
-	// AES secret key
-	public static SecretKey getAESKey(int keysize) throws NoSuchAlgorithmException {
-		KeyGenerator keyGen = KeyGenerator.getInstance("AES");
-		keyGen.init(keysize, SecureRandom.getInstanceStrong());
-		return keyGen.generateKey();
-	}
 
 	// Password derived AES 256 bits secret key
 	public static SecretKey getAESKeyFromPassword(char[] password, byte[] salt) {
