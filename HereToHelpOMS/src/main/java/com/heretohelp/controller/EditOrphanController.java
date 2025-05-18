@@ -5,6 +5,7 @@ import com.heretohelp.model.OrphanEducationSchoolModel;
 import com.heretohelp.model.OrphanModel;
 import com.heretohelp.model.SchoolModel;
 import com.heretohelp.service.OrphanService;
+import com.heretohelp.util.RedirectionUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -26,6 +27,7 @@ import java.util.List;
 public class EditOrphanController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private OrphanService orphanProfileService;
+	
 
 	public EditOrphanController() {
 		super();
@@ -60,6 +62,7 @@ public class EditOrphanController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			int orphanId = Integer.parseInt(request.getParameter("orphanId"));
+			
 			String firstName = request.getParameter("firstName");
 			String lastName = request.getParameter("lastName");
 			String dob = request.getParameter("dob");
@@ -118,9 +121,8 @@ public class EditOrphanController extends HttpServlet {
 			} else {
 				request.setAttribute("error", "Failed to update orphan.");
 			}
-
-			// Forward the request to the edit orphan page
 			request.getRequestDispatcher("/WEB-INF/pages/edit-orphan.jsp").forward(request, response);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("error", "Error updating orphan ");

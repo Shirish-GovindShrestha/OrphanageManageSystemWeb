@@ -149,10 +149,10 @@ body {
 	color: #28a745;
 }
 
-.additional-info {
+.additional-info p{
 	margin: 1rem 0;
 	font-size: 0.9rem;
-	color: #495057;
+	color: #6c757d;
 }
 
 .additional-info p {

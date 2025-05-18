@@ -27,7 +27,7 @@ import com.heretohelp.util.ImageUtil;
  */
 @WebServlet(asyncSupported = true, urlPatterns = { "/dashboard" })
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-		maxFileSize = 1024 * 1024 * 10, // 10MB
+		maxFileSize = 1024 * 1024 * 13, // 13MB
 		maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class DashboardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -87,31 +87,42 @@ public class DashboardController extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		try {
-			OrphanModel orphanModel = extractOrphanModel(req, resp);
-			Boolean isAdded = dashboardService.addOrphanWithEducation(orphanModel); // NEW method
+	    boolean isOrphanAdded = false;
 
-			if (isAdded == null) {
-				req.setAttribute("error", "Our server is under maintenance. Please try again later!");
-			} else if (isAdded) {
-				try {
-					if (uploadImage(req)) {
-						req.setAttribute("success", "Orphan details added successfully.");
-					} else {
-						req.setAttribute("error", "Could not upload the image. Please try again later!");
-					}
-				} catch (Exception e) {
-					req.setAttribute("error", "Could not upload the image. Please try again later!");
-				}
-			} else {
-				req.setAttribute("error", "Could not register orphan data. Please try again later!");
-			}
-		} catch (Exception e) {
-			req.setAttribute("error", "Could not register orphan data. Please try again later!");
-		}
+	    try {
+	        OrphanModel orphanModel = extractOrphanModel(req, resp);
+	        isOrphanAdded = dashboardService.addOrphanWithEducation(orphanModel);
+	    } catch (Exception e) {
+	        req.setAttribute("error", "Could not register orphan data. Please try again later!");
+	        doGet(req, resp);
+	        return; // Stop further processing if orphan registration fails
+	    }
 
-		doGet(req, resp);
+	    // Proceed to upload image only if orphan registration was successful
+	    if (isOrphanAdded) {
+	        try {
+	            if (uploadImage(req)) {
+	                req.setAttribute("success", "Orphan details added successfully.");
+	            } else {
+	                req.setAttribute("error", "Could not upload the image. Please try again later!");
+	            }
+	        } catch (IOException e) {
+	            // Handle specific IOException for file size exceeding the limit
+	            if ("File size exceeds the maximum allowed limit of 10MB".equals(e.getMessage())) {
+	                req.setAttribute("error", e.getMessage());
+	            } else {
+	                req.setAttribute("error", "An error occurred during file upload. Please try again later!");
+	            }
+	        } catch (ServletException e) {
+	            req.setAttribute("error", "Could not upload the image. Please try again later!");
+	        } catch (Exception e) {
+	            req.setAttribute("error", "Could not upload the image. Please try again later!");
+	        }
+	    }
+
+	    doGet(req, resp);
 	}
+
 
 	private OrphanModel extractOrphanModel(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String firstName = req.getParameter("firstName");
@@ -167,6 +178,9 @@ public class DashboardController extends HttpServlet {
 
 	private boolean uploadImage(HttpServletRequest req) throws IOException, ServletException {
 		Part image = req.getPart("photo");
+		if (image.getSize() >= 10 * 1024 * 1024) { // 10 MB in bytes
+			throw new IOException("File size exceeds the maximum allowed limit of 10MB");
+		}
 		return imageUtil.uploadImage(image, "orphan");
 	}
 }

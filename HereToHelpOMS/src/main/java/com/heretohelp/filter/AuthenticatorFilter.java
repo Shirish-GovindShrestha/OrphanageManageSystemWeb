@@ -25,9 +25,17 @@ public class AuthenticatorFilter implements Filter {
 	private static final String CONTACT = "/contact";
 	private static final String DASHBOARD = "/dashboard";
 	private static final String ROOT = "/";
-	private static final String PROFILE = "/orphan-profile";
 	private static final String ORPHAN = "/orphans";
-	private static final String ACCOUNT = "/account";
+
+	private boolean isPublicPath(String currentUrl) {
+		String[] publicPaths = { LOGIN, REGISTER, ORPHAN, ABOUT, ROOT, CONTACT, HOME };
+		for (String path : publicPaths) {
+			if (currentUrl.endsWith(path)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -52,9 +60,7 @@ public class AuthenticatorFilter implements Filter {
 			req.setAttribute("currentUserRole", role);
 		}
 
-		if (currentUrl.endsWith(".css") || currentUrl.endsWith(ORPHAN) || currentUrl.endsWith(".svg")
-				|| currentUrl.endsWith(HOME) || currentUrl.endsWith(PROFILE) || currentUrl.endsWith(ROOT)
-				|| currentUrl.endsWith(ABOUT) || currentUrl.endsWith(CONTACT) || currentUrl.endsWith(".jpg")
+		if (currentUrl.endsWith(".css") || currentUrl.endsWith(".svg") || currentUrl.endsWith(".jpg")
 				|| currentUrl.endsWith(".png")) {
 			chain.doFilter(req, resp);
 			return;
@@ -66,7 +72,7 @@ public class AuthenticatorFilter implements Filter {
 		}
 
 		if (session == null || role == null) {
-			if (currentUrl.endsWith(LOGIN) || currentUrl.endsWith(REGISTER) || currentUrl.endsWith(ACCOUNT)) {
+			if (isPublicPath(currentUrl)) {
 				chain.doFilter(req, resp);
 			} else {
 				httpResp.sendRedirect(httpReq.getContextPath() + LOGIN);

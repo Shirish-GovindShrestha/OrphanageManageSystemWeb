@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HereToHelp Orphanage Management System</title>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/home.css?v=5" />
+	href="${pageContext.request.contextPath}/css/home.css?v=10" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/sidebar.css" />
 <link rel="stylesheet" type="text/css"

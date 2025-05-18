@@ -65,7 +65,7 @@
 				UserModel userModel = extractUserModel(req, resp);
 				String result= registerService.checkDuplicateData(userModel);
 				if(!result.equals("NoDuplicatedDataFound")) {
-				handleError(req, resp, validationMessage);
+				handleError(req, resp, result);
 					return;
 				}
 				Boolean isAdded = registerService.addUser(userModel);
@@ -180,6 +180,7 @@
 	
 		public void handleError(HttpServletRequest req, HttpServletResponse resp, String message)
 				throws ServletException, IOException {
+			System.out.print(message);
 			req.setAttribute("error", message);
 			req.setAttribute("firstName", req.getParameter("firstName"));
 			req.setAttribute("lastName", req.getParameter("lastName"));

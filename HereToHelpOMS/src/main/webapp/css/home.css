@@ -229,6 +229,7 @@ body {
 
 /* Featured Children */
 .featured-section {
+	margin: 30px;
     padding: 4rem 0;
 }
 
