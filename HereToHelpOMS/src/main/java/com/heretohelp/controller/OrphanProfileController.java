@@ -17,13 +17,13 @@ import com.heretohelp.service.OrphanService;
 @WebServlet(asyncSupported = true, urlPatterns = { "/orphan-profile"})
 public class OrphanProfileController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private OrphanService profileService;
+	private OrphanService orphanService;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public OrphanProfileController() {
         super();
-        this.profileService = new OrphanService();
+        this.orphanService = new OrphanService();
         // TODO Auto-generated constructor stub
     }
 
@@ -33,7 +33,7 @@ public class OrphanProfileController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String orphanId= request.getParameter("id");
 		try {
-			OrphanModel orphan = profileService.getOrphanFromId(Integer.parseInt(orphanId));
+			OrphanModel orphan = orphanService.getOrphanFromId(Integer.parseInt(orphanId));
 			
 			if (orphan != null) {
                 request.setAttribute("orphan", orphan);

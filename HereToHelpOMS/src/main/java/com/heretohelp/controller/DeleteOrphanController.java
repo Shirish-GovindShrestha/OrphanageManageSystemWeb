@@ -33,9 +33,9 @@ public class DeleteOrphanController extends HttpServlet {
 				boolean isDeleted = dashboardService.deleteOrphanById(orphanId);
 
 				if (isDeleted) {
-					request.setAttribute("success", "Orphan record deleted successfully!");
+					request.getSession().setAttribute("success", "Orphan record deleted successfully!");
 				} else {
-					request.setAttribute("error", "Failed to delete the orphan record.");
+					request.getSession().setAttribute("error", "Failed to delete the orphan record.");
 				}
 			} catch (NumberFormatException e) {
 				request.setAttribute("error", "Invalid Orphan ID.");

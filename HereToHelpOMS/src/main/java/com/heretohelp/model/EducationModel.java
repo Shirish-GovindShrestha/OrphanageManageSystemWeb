@@ -1,4 +1,5 @@
 package com.heretohelp.model;
+
 public class EducationModel {
 	public EducationModel(int educationId, String grade, String performance, String remarks) {
 		super();
@@ -11,7 +12,7 @@ public class EducationModel {
 	public EducationModel() {
 		super();
 	}
-	
+
 	// Education details
 	private int educationId;
 	private String grade;
@@ -42,7 +43,6 @@ public class EducationModel {
 		this.remarks = remarks;
 	}
 
-
 	public int getEducationId() {
 		return educationId;
 	}
@@ -50,6 +50,5 @@ public class EducationModel {
 	public void setEducationId(int educationId) {
 		this.educationId = educationId;
 	}
-
 
 }

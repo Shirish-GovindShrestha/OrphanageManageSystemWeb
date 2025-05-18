@@ -108,6 +108,7 @@ public class PasswordUtil {
 
 			return new String(plainText, UTF_8);
 		} catch (Exception ex) {
+			System.out.print(ex);
 			return null;
 		}
 

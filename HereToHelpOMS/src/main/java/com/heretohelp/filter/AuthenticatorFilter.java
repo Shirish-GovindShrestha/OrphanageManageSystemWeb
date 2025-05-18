@@ -26,9 +26,10 @@ public class AuthenticatorFilter implements Filter {
 	private static final String DASHBOARD = "/dashboard";
 	private static final String ROOT = "/";
 	private static final String ORPHAN = "/orphans";
+	private static final String ORPHANPROFILE = "/orphan-profile";
 
 	private boolean isPublicPath(String currentUrl) {
-		String[] publicPaths = { LOGIN, REGISTER, ORPHAN, ABOUT, ROOT, CONTACT, HOME };
+		String[] publicPaths = { LOGIN, REGISTER, ORPHAN, ABOUT, ROOT, CONTACT, HOME, ORPHANPROFILE };
 		for (String path : publicPaths) {
 			if (currentUrl.endsWith(path)) {
 				return true;

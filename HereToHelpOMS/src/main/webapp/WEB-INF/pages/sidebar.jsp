@@ -20,12 +20,17 @@
 			<a href="${pageContext.request.contextPath}/dashboard"
 				class="nav-item active">Dashboard</a>
 		</c:if>
-		<a href="${pageContext.request.contextPath}/home" class="nav-item">Home</a>
-		<a href="${pageContext.request.contextPath}/orphans" class="nav-item">Orphans</a>
-		<a href="${pageContext.request.contextPath}/about" class="nav-item">About</a>
-		<a href="${pageContext.request.contextPath}/contact" class="nav-item">Contact
-			us</a>
 
+		<c:if test="${currentUserRole != 'admin'}">
+			<a href="${pageContext.request.contextPath}/home" class="nav-item">Home</a>
+			<a href="${pageContext.request.contextPath}/orphans" class="nav-item">Orphans</a>
+			<a href="${pageContext.request.contextPath}/about" class="nav-item">About</a>
+			<a href="${pageContext.request.contextPath}/contact" class="nav-item">Contact us</a>
+			
+		</c:if>
+
+		
+	
 		<c:choose>
 			<c:when test="${not empty currentUserRole}">
 				<a href="${pageContext.request.contextPath}/account"

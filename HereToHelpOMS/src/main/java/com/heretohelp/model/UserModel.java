@@ -9,8 +9,8 @@ public class UserModel {
 		this.imageUrl = imageUrl;
 	}
 
-	public UserModel(String firstName, String lastName, String username, LocalDate dob, String gender,
-			String number, String email, String password, String imageUrl) {
+	public UserModel(String firstName, String lastName, String username, LocalDate dob, String gender, String number,
+			String email, String password, String imageUrl) {
 		super();
 		this.firstName = firstName;
 		LastName = lastName;
@@ -53,22 +53,8 @@ public class UserModel {
 		this.password = password;
 	}
 
-	public UserModel(int userId, String firstName, String lastName, String username, LocalDate dob, String gender,
-			String number, String email, String password) {
-		super();
-		this.userId = userId;
-		this.firstName = firstName;
-		LastName = lastName;
-		Username = username;
-		Dob = dob;
-		this.gender = gender;
-		this.number = number;
-		this.email = email;
-		this.password = password;
-	}
-
 	public UserModel() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public int getUserId() {
@@ -142,12 +128,13 @@ public class UserModel {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	public String getImageUrl() {
-	    return imageUrl;
+		return imageUrl;
 	}
 
 	public void setImageUrl(String profilePicture) {
-	    this.imageUrl = profilePicture;
+		this.imageUrl = profilePicture;
 	}
 
 }

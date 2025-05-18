@@ -26,8 +26,6 @@ public class OrphanModel {
     private String status;
     private LocalDate admissionDate;
     private String imageUrl;
-
-
     private List<OrphanEducationSchoolModel> educationSchoolRecords;
 
     public List<OrphanEducationSchoolModel> getEducationSchoolRecords() {

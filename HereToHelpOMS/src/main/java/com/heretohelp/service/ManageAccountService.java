@@ -16,8 +16,6 @@ import com.heretohelp.config.DbConfig;
 import com.heretohelp.model.UserModel;
 import com.heretohelp.util.CookieUtil;
 import com.heretohelp.util.PasswordUtil;
-import com.heretohelp.util.RedirectionUtil;
-import com.heretohelp.util.SessionUtil;
 
 /**
  * Servlet implementation class ManageAccountService1
@@ -87,7 +85,8 @@ public class ManageAccountService extends HttpServlet {
 			return result;
 		}
 		
-		String currentUser = (String) SessionUtil.getAttribute(req, "username");
+		Cookie Cookie = CookieUtil.getCookie(req, "username");
+		String currentUser = Cookie != null ? Cookie.getValue() : null;
 		String updateQuery = "UPDATE user SET first_name = ?, last_name = ?, username = ?, dob = ?, gender = ?, number = ?, email = ?, password = ? WHERE username = ?";
 
 		try {
