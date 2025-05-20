@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import com.heretohelp.util.CookieUtil;
 import com.heretohelp.util.SessionUtil;
+
 /**
  * @author Shirish Govind Shrestha
  */
@@ -16,6 +17,10 @@ import com.heretohelp.util.SessionUtil;
 public class LogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Handles HTTP POST requests for user logout. Clears the user session and
+	 * associated cookies, then redirects to the home page.
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		CookieUtil.deleteCookie(response, "username");

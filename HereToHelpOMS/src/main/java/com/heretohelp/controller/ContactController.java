@@ -23,8 +23,8 @@ public class ContactController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * Handles HTTP GET requests for the contact page by forwarding the request and
+	 * response to the "contact.jsp" page.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

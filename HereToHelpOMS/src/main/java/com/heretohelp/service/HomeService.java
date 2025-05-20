@@ -34,10 +34,11 @@ public class HomeService {
 	/**
 	 * Fetches a list of active orphans from the database.
 	 *
-	 * @return list of orphanModel having status active, or null if database connection is unavailable
+	 * @return list of orphanModel having status active, or null if database
+	 *         connection is unavailable
 	 * @throws SQLException
 	 */
-	public List<OrphanModel> getOrphanModels() throws SQLException{
+	public List<OrphanModel> getOrphanModels() throws SQLException {
 		List<OrphanModel> orphanList = new ArrayList<OrphanModel>();
 		if (dbConn == null) {
 			System.err.println("Database connection is not available.");
@@ -48,7 +49,7 @@ public class HomeService {
 		try {
 			PreparedStatement ps = dbConn.prepareStatement(selectQuery);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				OrphanModel orphanModel = new OrphanModel();
 				orphanModel.setOrphanId(rs.getInt("orphan_id"));
 				orphanModel.setFirstName(rs.getString("first_name"));
@@ -59,10 +60,9 @@ public class HomeService {
 				orphanModel.setAdmissionDate(LocalDate.parse(rs.getString("admission_date")));
 				orphanModel.setImageUrl(rs.getString("image_url"));
 				orphanList.add(orphanModel);
-				
-				
+
 			}
-			
+
 			return orphanList;
 		} catch (SQLException e) {
 			System.err.println("Error while loggin " + e.getMessage());
@@ -70,7 +70,5 @@ public class HomeService {
 			return null;
 		}
 	}
-	
-
 
 }

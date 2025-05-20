@@ -74,7 +74,7 @@ public class LoginService {
 	}
 
 	/**
-	 * Retrieves the role of the specified user 
+	 * Retrieves the role of the specified user
 	 *
 	 * @param userModel the user whose role is to be retrieved
 	 * @return true if the user is an admin; false otherwise; null if a database

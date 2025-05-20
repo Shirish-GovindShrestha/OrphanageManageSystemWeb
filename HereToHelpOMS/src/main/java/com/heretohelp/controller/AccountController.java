@@ -87,7 +87,16 @@ public class AccountController extends HttpServlet {
 		}
 
 	}
-
+	
+	/**
+	 * Extracts user data from the HttpServletRequest and processes it to create a UserModel object.
+	 * Handles validation and password management (including updates) for the user.
+	 *
+	 * @param req  HttpServletRequest object containing user input
+	 * @param resp HttpServletResponse object for sending responses
+	 * @return UserModel object containing extracted and processed user information, or null if errors occur
+	 * @throws Exception if any validation, parsing, or service-related error occurs
+	 */
 	private UserModel extractUserModel(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String firstName = req.getParameter("firstName");
 		String lastName = req.getParameter("lastName");
@@ -136,6 +145,17 @@ public class AccountController extends HttpServlet {
 		return new UserModel(firstName, lastName, username, dob, gender, number, email, finalPassword);
 	}
 
+	
+	/**
+	 * Handles errors by setting an error message in the request attributes
+	 * and forwarding to the account page.
+	 *
+	 * @param req     HttpServletRequest object
+	 * @param resp    HttpServletResponse object
+	 * @param message Error message to display to the user
+	 * @throws ServletException if forwarding fails
+	 * @throws IOException      if an input/output error occurs
+	 */
 	private void handleError(HttpServletRequest req, HttpServletResponse resp, String message)
 			throws ServletException, IOException {
 		req.setAttribute("error", message);

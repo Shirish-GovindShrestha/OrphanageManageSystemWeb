@@ -26,7 +26,6 @@ import java.util.List;
 public class EditOrphanController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private OrphanService orphanProfileService;
-	
 
 	public EditOrphanController() {
 		super();
@@ -34,6 +33,10 @@ public class EditOrphanController extends HttpServlet {
 	}
 
 	@Override
+	/**
+	 * Handles HTTP GET requests to fetch and display orphan profile data for
+	 * editing.
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String orphanIdStr = request.getParameter("id");
@@ -57,11 +60,16 @@ public class EditOrphanController extends HttpServlet {
 	}
 
 	@Override
+	/**
+	 * Handles HTTP POST requests to update orphan details, including personal,
+	 * education, and school information. It validates the input, processes updates,
+	 * and forwards the response to the appropriate page.
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
 			int orphanId = Integer.parseInt(request.getParameter("orphanId"));
-			
+
 			String firstName = request.getParameter("firstName");
 			String lastName = request.getParameter("lastName");
 			String dob = request.getParameter("dob");

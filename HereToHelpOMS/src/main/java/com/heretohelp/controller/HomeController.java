@@ -12,45 +12,46 @@ import java.util.List;
 import com.heretohelp.model.OrphanModel;
 import com.heretohelp.service.HomeService;
 
-
 /**
  * @author Shirish Govind Shrestha
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/home", "/"})
+@WebServlet(asyncSupported = true, urlPatterns = { "/home", "/" })
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private HomeService homeService;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public HomeController() {
-    	
-        super();
-        homeService = new HomeService();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public HomeController() {
+
+		super();
+		homeService = new HomeService();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * Handles HTTP GET requests for the contact page by forwarding the request and
+	 * response to the "home.jsp" page.
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 		try {
 			List<OrphanModel> orphanList = homeService.getOrphanModels();
-			if(orphanList==null) {
-				
+			if (orphanList == null) {
+
 				request.setAttribute("orphanList", null);
-			}	
+			}
 			request.setAttribute("orphanList", orphanList);
-			request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request,response);
-			
-		}catch (SQLException e) {
-            // Log and handle the error
-            e.printStackTrace();
-            request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request,response);
-        }
+			request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
+
+		} catch (SQLException e) {
+			// Log and handle the error
+			e.printStackTrace();
+			request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
+		}
 	}
 
 }

@@ -1,5 +1,11 @@
 package com.heretohelp.model;
+
 public class SchoolModel {
+
+	/**
+	 * No-argument constructor for SchoolModel. Initializes a new instance of the
+	 * SchoolModel class.
+	 */
 	public SchoolModel() {
 		super();
 	}
@@ -7,7 +13,7 @@ public class SchoolModel {
 	// School details
 	private int schoolId;
 	private String schoolName;
-	
+
 	public String getSchoolName() {
 		return schoolName;
 	}
@@ -16,7 +22,6 @@ public class SchoolModel {
 		this.schoolName = schoolName;
 	}
 
-
 	public int getSchoolId() {
 		return schoolId;
 	}
@@ -24,6 +29,5 @@ public class SchoolModel {
 	public void setSchoolId(int schoolId) {
 		this.schoolId = schoolId;
 	}
-
 
 }

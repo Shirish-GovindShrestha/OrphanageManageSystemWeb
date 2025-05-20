@@ -290,6 +290,15 @@ public class DashboardService {
 		return isDeleted;
 	}
 
+	/**
+	 * Adds an orphan along with their education records in a transactional way.
+	 * Rolls back if any operation fails.
+	 * 
+	 * @param orphanModel OrphanModel containing orphan and education details.
+	 * @return Boolean true if added successfully, false if failed, null if dbConn
+	 *         is null.
+	 * @throws SQLException if a database access error occurs.
+	 */
 	public Boolean addOrphanWithEducation(OrphanModel orphanModel) throws SQLException {
 		if (dbConn == null)
 			return null;
@@ -328,6 +337,13 @@ public class DashboardService {
 		}
 	}
 
+	/**
+	 * Inserts an orphan into the database and returns the generated orphan ID.
+	 * 
+	 * @param orphanModel OrphanModel containing orphan data.
+	 * @return int Orphan ID if inserted successfully, -1 otherwise.
+	 * @throws SQLException if a database access error occurs.
+	 */
 	private int insertOrphan(OrphanModel orphanModel) throws SQLException {
 		String orphanQuery = "INSERT INTO orphan (first_name, last_name, dob, gender, status, admission_date, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try (PreparedStatement orphanPs = dbConn.prepareStatement(orphanQuery, Statement.RETURN_GENERATED_KEYS)) {
@@ -348,6 +364,14 @@ public class DashboardService {
 		}
 	}
 
+	/**
+	 * Gets the school ID by school name if it exists, otherwise inserts a new
+	 * school.
+	 * 
+	 * @param schoolName Name of the school.
+	 * @return int School ID.
+	 * @throws SQLException if a database access error occurs.
+	 */
 	private int insertOrGetSchool(String schoolName) throws SQLException {
 		// Check if the school already exists
 		String schoolQuery = "SELECT school_id FROM school WHERE school_name = ?";
@@ -373,6 +397,14 @@ public class DashboardService {
 		return -1;
 	}
 
+	/**
+	 * Gets the education ID by matching grade, performance, and remarks if exists,
+	 * otherwise inserts a new education record.
+	 * 
+	 * @param educationModel EducationModel containing education data.
+	 * @return int Education ID.
+	 * @throws SQLException if a database access error occurs.
+	 */
 	private int insertOrGetEducation(EducationModel educationModel) throws SQLException {
 		// Check if the education record already exists
 		String educationQuery = "SELECT education_id FROM education WHERE grade = ? AND performance = ? AND remarks = ?";
@@ -402,6 +434,13 @@ public class DashboardService {
 		return -1;
 	}
 
+	/**
+	 * Links an orphan to an education record in the orphan_education table.
+	 * 
+	 * @param orphanId    ID of the orphan.
+	 * @param educationId ID of the education record.
+	 * @throws SQLException if a database access error occurs.
+	 */
 	private void linkOrphanEducation(int orphanId, int educationId) throws SQLException {
 		String orphanEduQuery = "INSERT INTO orphan_education (orphan_id, education_id) VALUES (?, ?)";
 		try (PreparedStatement orphanEduPs = dbConn.prepareStatement(orphanEduQuery)) {
@@ -411,6 +450,15 @@ public class DashboardService {
 		}
 	}
 
+	/**
+	 * Links an orphan, education record, and school in the orphan_education_school
+	 * table.
+	 * 
+	 * @param orphanId    ID of the orphan.
+	 * @param educationId ID of the education record.
+	 * @param schoolId    ID of the school.
+	 * @throws SQLException if a database access error occurs.
+	 */
 	private void linkOrphanEducationSchool(int orphanId, int educationId, int schoolId) throws SQLException {
 		String linkQuery = "INSERT INTO orphan_education_school (orphan_id, education_id, school_id) VALUES (?, ?, ?)";
 		try (PreparedStatement linkPs = dbConn.prepareStatement(linkQuery)) {

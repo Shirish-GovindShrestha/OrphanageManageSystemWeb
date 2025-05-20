@@ -36,74 +36,75 @@ public class OrphanService {
 	 * @throws SQLException if a database access error occurs
 	 */
 	public boolean updateOrphan(OrphanModel orphanModel) throws SQLException {
-	    if (dbConn == null) {
-	        return false;
-	    }
+		if (dbConn == null) {
+			return false;
+		}
 
-	    try {
-	        dbConn.setAutoCommit(false);  // Start a transaction
+		try {
+			dbConn.setAutoCommit(false); // Start a transaction
 
-	        // Step 1: Update orphan details in the orphan table
-	        String orphanQuery = "UPDATE orphan SET first_name = ?, last_name = ?, dob = ?, gender = ?, status = ?, admission_date = ? WHERE orphan_id = ?";
-	        try (PreparedStatement orphanPs = dbConn.prepareStatement(orphanQuery)) {
-	            orphanPs.setString(1, orphanModel.getFirstName());
-	            orphanPs.setString(2, orphanModel.getLastName());
-	            orphanPs.setString(3, orphanModel.getDob().toString());
-	            orphanPs.setString(4, orphanModel.getGender());
-	            orphanPs.setString(5, orphanModel.getStatus());
-	            orphanPs.setString(6, orphanModel.getAdmissionDate().toString());
-	            orphanPs.setInt(7, orphanModel.getOrphanId());
-	            orphanPs.executeUpdate();
-	        }
+			// Step 1: Update orphan details in the orphan table
+			String orphanQuery = "UPDATE orphan SET first_name = ?, last_name = ?, dob = ?, gender = ?, status = ?, admission_date = ? WHERE orphan_id = ?";
+			try (PreparedStatement orphanPs = dbConn.prepareStatement(orphanQuery)) {
+				orphanPs.setString(1, orphanModel.getFirstName());
+				orphanPs.setString(2, orphanModel.getLastName());
+				orphanPs.setString(3, orphanModel.getDob().toString());
+				orphanPs.setString(4, orphanModel.getGender());
+				orphanPs.setString(5, orphanModel.getStatus());
+				orphanPs.setString(6, orphanModel.getAdmissionDate().toString());
+				orphanPs.setInt(7, orphanModel.getOrphanId());
+				orphanPs.executeUpdate();
+			}
 
-	        // Step 2: Update education and school data
-	        for (OrphanEducationSchoolModel eduSchool : orphanModel.getEducationSchoolRecords()) {
-	            EducationModel education = eduSchool.getEducation();
-	            SchoolModel school = eduSchool.getSchool();
+			// Step 2: Update education and school data
+			for (OrphanEducationSchoolModel eduSchool : orphanModel.getEducationSchoolRecords()) {
+				EducationModel education = eduSchool.getEducation();
+				SchoolModel school = eduSchool.getSchool();
 
-	            // Step 2a: Update education record
-	            String eduQuery = "UPDATE education SET grade = ?, performance = ?, remarks = ? WHERE education_id = ?";
-	            try (PreparedStatement eduPs = dbConn.prepareStatement(eduQuery)) {
-	                eduPs.setString(1, education.getGrade());
-	                eduPs.setString(2, education.getPerformance());
-	                eduPs.setString(3, education.getRemarks());
-	                eduPs.setInt(4, education.getEducationId());
-	                eduPs.executeUpdate();
-	            }
+				// Step 2a: Update education record
+				String eduQuery = "UPDATE education SET grade = ?, performance = ?, remarks = ? WHERE education_id = ?";
+				try (PreparedStatement eduPs = dbConn.prepareStatement(eduQuery)) {
+					eduPs.setString(1, education.getGrade());
+					eduPs.setString(2, education.getPerformance());
+					eduPs.setString(3, education.getRemarks());
+					eduPs.setInt(4, education.getEducationId());
+					eduPs.executeUpdate();
+				}
 
-	            // Step 2b: Update school record
-	            String schoolQuery = "UPDATE school SET school_name = ? WHERE school_id = ?";
-	            try (PreparedStatement schoolPs = dbConn.prepareStatement(schoolQuery)) {
-	                schoolPs.setString(1, school.getSchoolName());
-	                schoolPs.setInt(2, school.getSchoolId());
-	                schoolPs.executeUpdate();
-	            }
+				// Step 2b: Update school record
+				String schoolQuery = "UPDATE school SET school_name = ? WHERE school_id = ?";
+				try (PreparedStatement schoolPs = dbConn.prepareStatement(schoolQuery)) {
+					schoolPs.setString(1, school.getSchoolName());
+					schoolPs.setInt(2, school.getSchoolId());
+					schoolPs.executeUpdate();
+				}
 
-	            // Step 3: Link orphan to education and school in the orphan_education_school table
-	            String linkQuery = "UPDATE orphan_education_school SET school_id = ?, education_id = ? WHERE orphan_id = ?";
-	            try (PreparedStatement linkPs = dbConn.prepareStatement(linkQuery)) {
-	                linkPs.setInt(1, school.getSchoolId());
-	                linkPs.setInt(2, education.getEducationId());
-	                linkPs.setInt(3, orphanModel.getOrphanId());
-	                linkPs.executeUpdate();
-	            }
-	        }
+				// Step 3: Link orphan to education and school in the orphan_education_school
+				// table
+				String linkQuery = "UPDATE orphan_education_school SET school_id = ?, education_id = ? WHERE orphan_id = ?";
+				try (PreparedStatement linkPs = dbConn.prepareStatement(linkQuery)) {
+					linkPs.setInt(1, school.getSchoolId());
+					linkPs.setInt(2, education.getEducationId());
+					linkPs.setInt(3, orphanModel.getOrphanId());
+					linkPs.executeUpdate();
+				}
+			}
 
-	        dbConn.commit();  // Commit the transaction if everything is successful
-	        return true;
-	    } catch (SQLException e) {
-	        dbConn.rollback();  // Rollback the transaction if something goes wrong
-	        e.printStackTrace();
-	        return false;
-	    } finally {
-	        dbConn.setAutoCommit(true);  // Restore auto-commit mode
-	    }
+			dbConn.commit(); // Commit the transaction if everything is successful
+			return true;
+		} catch (SQLException e) {
+			dbConn.rollback(); // Rollback the transaction if something goes wrong
+			e.printStackTrace();
+			return false;
+		} finally {
+			dbConn.setAutoCommit(true); // Restore auto-commit mode
+		}
 	}
-
 
 	/**
 	 * Fetches the details of the orphan that matches the orphan_id
 	 *
+	 *@param int Orphan id for search
 	 * @return orphan model
 	 * @throws SQLException
 	 */
@@ -128,7 +129,7 @@ public class OrphanService {
 				orphan.setStatus(rs.getString("status"));
 				orphan.setAdmissionDate(LocalDate.parse(rs.getString("admission_date")));
 				orphan.setImageUrl(rs.getString("image_url"));
-			}else {
+			} else {
 				return null;
 			}
 
@@ -163,6 +164,12 @@ public class OrphanService {
 		}
 	}
 
+	/**
+	 * Retrieves all school records from the database.
+	 * 
+	 * @return List of all SchoolModel objects.
+	 * @throws SQLException if a database access error occurs.
+	 */
 	public List<SchoolModel> getAllSchools() throws SQLException {
 		List<SchoolModel> schools = new ArrayList<>();
 		String query = "SELECT * FROM school";
@@ -177,6 +184,12 @@ public class OrphanService {
 		return schools;
 	}
 
+	/**
+	 * Retrieves all education level records from the database.
+	 * 
+	 * @return List of all EducationModel objects.
+	 * @throws SQLException if a database access error occurs.
+	 */
 	public List<EducationModel> getAllEducationLevels() throws SQLException {
 		List<EducationModel> educationLevels = new ArrayList<>();
 		String query = "SELECT * FROM education";
@@ -191,12 +204,11 @@ public class OrphanService {
 		}
 		return educationLevels;
 	}
-	
-	
-	
+
 	/**
 	 * Retrieves orphan data from database with input firstname or last name
 	 *
+	 *@param searchItem String for searching parameter in the database
 	 * @return list of orphanModel
 	 * @throws SQLException
 	 */

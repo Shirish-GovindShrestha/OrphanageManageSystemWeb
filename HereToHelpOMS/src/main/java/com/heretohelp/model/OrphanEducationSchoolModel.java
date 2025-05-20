@@ -1,32 +1,35 @@
 package com.heretohelp.model;
 
+/**
+ * Represents the education and school information related to an orphan.
+ */
 public class OrphanEducationSchoolModel {
-    private EducationModel education;
-    private SchoolModel school;
+	private EducationModel education;
+	private SchoolModel school;
 
-    public OrphanEducationSchoolModel(EducationModel education, SchoolModel school) {
-        this.education = education;
-        this.school = school;
-    }
+	public OrphanEducationSchoolModel(EducationModel education, SchoolModel school) {
+		this.education = education;
+		this.school = school;
+	}
 
-    public OrphanEducationSchoolModel() {
+	public OrphanEducationSchoolModel() {
 		// TODO Auto-generated constructor stub
 	}
 
 	// Getters and Setters
-    public EducationModel getEducation() {
-        return education;
-    }
+	public EducationModel getEducation() {
+		return education;
+	}
 
-    public void setEducation(EducationModel education) {
-        this.education = education;
-    }
+	public void setEducation(EducationModel education) {
+		this.education = education;
+	}
 
-    public SchoolModel getSchool() {
-        return school;
-    }
+	public SchoolModel getSchool() {
+		return school;
+	}
 
-    public void setSchool(SchoolModel school) {
-        this.school = school;
-    }
+	public void setSchool(SchoolModel school) {
+		this.school = school;
+	}
 }

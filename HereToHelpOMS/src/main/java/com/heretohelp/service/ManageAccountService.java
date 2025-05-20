@@ -1,6 +1,5 @@
 package com.heretohelp.service;
 
-
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,7 +23,6 @@ public class ManageAccountService extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection dbConn;
 
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -38,6 +36,7 @@ public class ManageAccountService extends HttpServlet {
 		}
 		// TODO Auto-generated constructor stub
 	}
+
 	/**
 	 * update existing user profile image data
 	 *
@@ -49,8 +48,8 @@ public class ManageAccountService extends HttpServlet {
 		if (dbConn == null) {
 			System.err.println("Database connection is not available.");
 			return null;
-		}		
-		
+		}
+
 		Cookie Cookie = CookieUtil.getCookie(req, "username");
 		String currentUser = Cookie != null ? Cookie.getValue() : null;
 		String updateQuery = "UPDATE user set image_url=? WHERE username = ?";
@@ -61,7 +60,7 @@ public class ManageAccountService extends HttpServlet {
 			updateStmt.setString(1, userModel.getImageUrl());
 			updateStmt.setString(2, currentUser);
 
-			return updateStmt.executeUpdate() > 0 ;
+			return updateStmt.executeUpdate() > 0;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -81,10 +80,10 @@ public class ManageAccountService extends HttpServlet {
 			return null;
 		}
 		String result = checkDuplicateData(userModel);
-		if (!result.equals("NoDuplicatedDataFound")|| result==null) {
+		if (!result.equals("NoDuplicatedDataFound") || result == null) {
 			return result;
 		}
-		
+
 		Cookie Cookie = CookieUtil.getCookie(req, "username");
 		String currentUser = Cookie != null ? Cookie.getValue() : null;
 		String updateQuery = "UPDATE user SET first_name = ?, last_name = ?, username = ?, dob = ?, gender = ?, number = ?, email = ?, password = ? WHERE username = ?";
@@ -184,8 +183,14 @@ public class ManageAccountService extends HttpServlet {
 			return null;
 		}
 	}
+
 	
-	
+	/**
+	 * Retrieves and decrypts the current password for a given username from the database.
+	 * 
+	 * @param username The username to look up.
+	 * @return The decrypted password if found; otherwise, null.
+	 */
 	public String getCurrentPassword(String username) {
 		if (dbConn == null) {
 			System.err.println("Database connection is not available.");
@@ -196,7 +201,7 @@ public class ManageAccountService extends HttpServlet {
 			stmt.setString(1, username);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				return PasswordUtil.decrypt(rs.getString("password"),username);
+				return PasswordUtil.decrypt(rs.getString("password"), username);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

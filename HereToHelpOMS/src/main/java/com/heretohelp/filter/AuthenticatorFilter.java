@@ -28,6 +28,13 @@ public class AuthenticatorFilter implements Filter {
 	private static final String ORPHAN = "/orphans";
 	private static final String ORPHANPROFILE = "/orphan-profile";
 
+	/**
+	 * Checks if the given URL is a public path that does not require
+	 * authentication.
+	 *
+	 * @param currentUrl the URL string to check
+	 * @return true if the URL matches any public path, false otherwise
+	 */
 	private boolean isPublicPath(String currentUrl) {
 		String[] publicPaths = { LOGIN, REGISTER, ORPHAN, ABOUT, ROOT, CONTACT, HOME, ORPHANPROFILE };
 		for (String path : publicPaths) {

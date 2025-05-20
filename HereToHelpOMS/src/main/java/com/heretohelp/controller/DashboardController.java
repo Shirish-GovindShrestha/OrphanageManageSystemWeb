@@ -45,8 +45,8 @@ public class DashboardController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * Handles HTTP GET requests for the contact page by forwarding the request and
+	 * response to the "dashbaord.jsp" page.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -87,43 +87,53 @@ public class DashboardController extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	    boolean isOrphanAdded = false;
+		boolean isOrphanAdded = false;
 
-	    try {
-	        OrphanModel orphanModel = extractOrphanModel(req, resp);
-	        isOrphanAdded = dashboardService.addOrphanWithEducation(orphanModel);
-	    } catch (Exception e) {
-	        req.setAttribute("error", "Could not register orphan data. Please try again later!");
-	        doGet(req, resp);
-	        return; // Stop further processing if orphan registration fails
-	    }
+		try {
+			OrphanModel orphanModel = extractOrphanModel(req, resp);
+			isOrphanAdded = dashboardService.addOrphanWithEducation(orphanModel);
+		} catch (Exception e) {
+			req.setAttribute("error", "Could not register orphan data. Please try again later!");
+			doGet(req, resp);
+			return; // Stop further processing if orphan registration fails
+		}
 
-	    // Proceed to upload image only if orphan registration was successful
-	    if (isOrphanAdded) {
-	        try {
-	            if (uploadImage(req)) {
-	                req.setAttribute("success", "Orphan details added successfully.");
-	            } else {
-	                req.setAttribute("error", "Could not upload the image. Please try again later!");
-	            }
-	        } catch (IOException e) {
-	            // Handle specific IOException for file size exceeding the limit
-	            if ("File size exceeds the maximum allowed limit of 10MB".equals(e.getMessage())) {
-	                req.setAttribute("error", e.getMessage());
-	            } else {
-	                req.setAttribute("error", "An error occurred during file upload. Please try again later!");
-	            }
-	        } catch (ServletException e) {
-	            req.setAttribute("error", "Could not upload the image. Please try again later!");
-	        } catch (Exception e) {
-	            req.setAttribute("error", "Could not upload the image. Please try again later!");
-	        }
-	    }
+		// Proceed to upload image only if orphan registration was successful
+		if (isOrphanAdded) {
+			try {
+				if (uploadImage(req)) {
+					req.setAttribute("success", "Orphan details added successfully.");
+				} else {
+					req.setAttribute("error", "Could not upload the image. Please try again later!");
+				}
+			} catch (IOException e) {
+				// Handle specific IOException for file size exceeding the limit
+				if ("File size exceeds the maximum allowed limit of 10MB".equals(e.getMessage())) {
+					req.setAttribute("error", e.getMessage());
+				} else {
+					req.setAttribute("error", "An error occurred during file upload. Please try again later!");
+				}
+			} catch (ServletException e) {
+				req.setAttribute("error", "Could not upload the image. Please try again later!");
+			} catch (Exception e) {
+				req.setAttribute("error", "Could not upload the image. Please try again later!");
+			}
+		}
 
-	    doGet(req, resp);
+		doGet(req, resp);
 	}
 
-
+	/**
+	 * Extracts orphan information from the HttpServletRequest and creates an
+	 * OrphanModel object. Includes image handling, school, and education data
+	 * extraction.
+	 *
+	 * @param req  HttpServletRequest object containing the form data
+	 * @param resp HttpServletResponse object for sending responses in case of
+	 *             errors
+	 * @return OrphanModel object containing all extracted data
+	 * @throws Exception if validation, parsing, or image processing errors occur
+	 */
 	private OrphanModel extractOrphanModel(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String firstName = req.getParameter("firstName");
 		String lastName = req.getParameter("lastName");
@@ -176,6 +186,15 @@ public class DashboardController extends HttpServlet {
 		return orphan;
 	}
 
+	/**
+	 * Handles the upload of an image for an orphan. Validates the file size and
+	 * uploads the image to the "orphan" directory.
+	 *
+	 * @param req HttpServletRequest object containing the image part
+	 * @return true if the image upload is successful, false otherwise
+	 * @throws IOException      if an input/output error occurs during the upload
+	 * @throws ServletException if an error occurs while accessing the image part
+	 */
 	private boolean uploadImage(HttpServletRequest req) throws IOException, ServletException {
 		Part image = req.getPart("photo");
 		if (image.getSize() >= 10 * 1024 * 1024) { // 10 MB in bytes

@@ -17,11 +17,10 @@ import com.heretohelp.util.ValidationUtil;
 /**
  * @author Shirish Govind Shrestha
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/login"})
+@WebServlet(asyncSupported = true, urlPatterns = { "/login" })
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private LoginService loginService;
-	
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -34,8 +33,8 @@ public class LoginController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * Handles HTTP GET requests for the contact page by forwarding the request and
+	 * response to the "login.jsp" page.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -44,31 +43,32 @@ public class LoginController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * Handles HTTP POST requests for user login. Validates input credentials,
+	 * checks authentication, and redirects the user based on their role or displays
+	 * an error message in case of login failure.
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
-		if (ValidationUtil.isNullOrEmpty(password) ||ValidationUtil.isNullOrEmpty(username)  ) {
-			handleLoginFailure(req,resp,false);
+		if (ValidationUtil.isNullOrEmpty(password) || ValidationUtil.isNullOrEmpty(username)) {
+			handleLoginFailure(req, resp, false);
 		}
 		UserModel loginCredential = new UserModel(username, password);
 		Boolean loginStatus = loginService.checkUserCredentials(loginCredential);
 
 		if (loginStatus != null && loginStatus) {
 			String Role = loginService.retrieveUserRole(loginCredential) ? "admin" : "adopter";
-			CookieUtil.addCookie(resp, "username", username, 60*15);
+			CookieUtil.addCookie(resp, "username", username, 60 * 15);
 			SessionUtil.setAttribute(req, "role", Role);
-			if (Role.equals("admin")) {		
+			if (Role.equals("admin")) {
 				resp.sendRedirect(req.getContextPath() + "/dashboard");
 			} else {
 				resp.sendRedirect(req.getContextPath() + "/home"); // Redirect to /home
 			}
 		} else {
-			handleLoginFailure(req,resp,loginStatus);
-			
+			handleLoginFailure(req, resp, loginStatus);
+
 		}
 	}
 

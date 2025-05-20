@@ -19,6 +19,13 @@ public class UserService {
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * Retrieves the current user's data based on the "username" cookie,
+	 * then sets the user's details as request attributes for use in the JSP.
+	 * If the user has no profile image, a default image path is set.
+	 * 
+	 * @param req HttpServletRequest object to set attributes on.
+	 */
 	public void setUserData(HttpServletRequest req) {
 		Cookie Cookie = CookieUtil.getCookie(req, "username");
 		String currentUser = Cookie != null ? Cookie.getValue() : null;
